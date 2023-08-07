@@ -56,3 +56,4 @@ dkms.conf
 *.code-workspace
 # Makefile dependencies
 *.dep
+doxygen_doc/
