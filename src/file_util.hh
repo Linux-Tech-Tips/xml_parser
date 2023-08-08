@@ -15,9 +15,9 @@
 #include <string>
 
 /** Writes a string into a file */
-void file_writeString(char const * fileName, std::string const * fileData);
+void file_writeString(char const * fileName, std::string const & fileData);
 
 /** Returns a string read from a file */
 std::string file_readString(char const * fileName);
 
-#endif
+#endif /* FILE_UTIL_H */

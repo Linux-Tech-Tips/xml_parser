@@ -1,9 +1,9 @@
 #include "file_util.hh"
 
-void file_writeString(char const * fileName, std::string const * fileData) {
+void file_writeString(char const * fileName, std::string const & fileData) {
     /* Writing to output file stream */
     std::ofstream f(fileName);
-    f.write(fileData->c_str(), fileData->length());
+    f.write(fileData.c_str(), fileData.length());
     f.close();
 }
 

@@ -9,8 +9,7 @@ int main() {
 
     std::cout << file_readString("README.md") << std::endl;
 
-    std::string fileData = "TEST FILE DATA\n";
-    file_writeString("test.txt", &fileData);
+    file_writeString("test.txt", "TEST FILE DATA\n");
 
     return 0;
 }
