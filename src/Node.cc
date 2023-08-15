@@ -3,7 +3,7 @@
 /* Private member functions */
 
 bool Node::checkName(std::string name, bool xmlReserved) {
-    return std::regex_match(name, std::regex("(_|[a-zA-Z])[\\w-.]*")) && (!xmlReserved || name != "xml");
+    return std::regex_match(name, std::regex("(_|[a-zA-Z])[\\w\\-\\.]*")) && (!xmlReserved || name != "xml");
 }
 
 /* Constructors */
