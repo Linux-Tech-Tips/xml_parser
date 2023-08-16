@@ -8,41 +8,53 @@
 
 /* First version - file_util demo - write/read files before working with XML */
 
+/* Temporary TODO Next: 
+    - Add member functions to get child by name
+    - Make an XML Document class, which can load and save XML Documents
+*/
+
 int main() {
 
-    XmlElement testEl;
+    /* Demonstration code */
 
-    testEl.setName("TestEl");
-    testEl.setAttribute("lol", "thing");
-    testEl.setAttribute("attr2", "thing2");
+    /* First nodes */
+
+    XmlElement rootEl;
+
+    rootEl.setName("RootElement");
+    rootEl.setAttribute("attr1", "first attribute");
+    rootEl.setAttribute("attr2", "second attribute");
     
-    XmlElement nestEl("NestEl", false);
-    XmlElement el2("EllyMent");
-    testEl.pushBackChild(nestEl);
-    testEl.pushBackChild(el2);
-    std::cout << "The element is:" << std::endl << testEl.print() << std::endl;
+    XmlElement nestl("NestedElement1", false);
+    XmlElement nest2("NestedElement2");
+    rootEl.pushBackChild(nestl);
+    rootEl.pushBackChild(nest2);
 
-    std::cout << "Changing-" << std::endl;
+    /* Printing */
+    std::cout << "1. The element is:" << std::endl << rootEl.print() << std::endl;
 
-    testEl.getChild(0).setName("ZerothElement");
-    static_cast<XmlElement &>(testEl.getChild(1)).setAttribute("elly", "ment");
-    XmlElement el3("Nestie");
-    static_cast<XmlElement &>(testEl.getChild(1)).pushBackChild(el3);
+    /* Additional nodes */
+    rootEl.getChild(0).setName("NestedElementZero");
+    rootEl.getChild(1).setAttribute("internal_index", "1");
+    XmlElement nest3("NestedElement3");
+    static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(nest3);
 
-    TextElement tEl1("p", "This is a text paragraph");
-    static_cast<XmlElement &>(testEl.getChild(1)).pushBackChild(tEl1);
+    /* Adding paragraphs */
+    TextElement p1("p", "This is a text paragraph");
+    static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(p1);
 
-    XmlElement tEl2("p", true);
-    TextElement tmpT1("tmp", "This \"is\" a pretty cursed ", false, false);
-    tEl2.pushBackChild(tmpT1);
-    TextElement tmpT2("b", "XML", true, false);
-    tEl2.pushBackChild(tmpT2);
-    TextElement tmpT3("tmp", " Document, tbh <3", false, false);
-    tEl2.pushBackChild(tmpT3);
+    XmlElement p2("p", true);
+    TextElement text1("text1", "This \"is\" a showcase of ", false, false);
+    p2.pushBackChild(text1);
+    TextElement text2("b", "HTML", true, false, false, true);
+    p2.pushBackChild(text2);
+    TextElement text3("text3", "-like paragraph capability (in addition to pure XML). <3", false, false);
+    p2.pushBackChild(text3);
 
-    static_cast<XmlElement &>(testEl.getChild(1)).pushBackChild(tEl2);
+    static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(p2);
 
-    std::cout << "The element is:" << std::endl << testEl.print() << std::endl;
+    /* Printing again */
+    std::cout << "2. The element is:" << std::endl << rootEl.print() << std::endl;
 
     return 0;
 }

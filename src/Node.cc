@@ -8,12 +8,11 @@ bool Node::checkName(std::string name, bool xmlReserved) {
 
 /* Constructors */
 
-Node::Node() {
-    this->setName("_default_node");
-}
-
-Node::Node(std::string const & name) {
+/* TODO Refactor - pointless to pass address when the function called takes copy anyway */
+Node::Node(std::string const & name, bool endLine, bool indent) {
     this->setName(name);
+    this->endLine = endLine;
+    this->indent = indent;
 }
 
 /* Public member functions */
@@ -49,6 +48,11 @@ std::string Node::getAttribute(char const * name) {
         return "";
 }
 
+void Node::delAttribute(char const * name) {
+    if(this->attributes.find(name) != this->attributes.end())
+        this->attributes.erase(name);
+}
+
 size_t Node::getAttributeNumber(void) {
     return this->attributes.size();
 }
@@ -60,6 +64,45 @@ bool Node::isAttributeEmpty(void) {
 
 /* Other*/
 
+void Node::setEndLine(bool endLine) {
+    this->endLine = endLine;
+}
+
+bool Node::getEndLine(void) {
+    return this->endLine;
+}
+
+void Node::setIndent(bool indent) {
+    this->indent = indent;
+}
+
+bool Node::getIndent(void) {
+    return this->indent;
+}
+
 std::string Node::print(int indentLevel) {
-    return "";
+    std::string result;
+    
+    /* Indent if desired */
+    if(indent && indentLevel > 0) {
+        for(int i = 0; i < indentLevel; i++)
+            result += "\t";    
+    }
+
+    result += "<" + this->name;
+
+    /* Attributes if any */
+    for(auto it : this->attributes) {
+        result += " ";
+        result += *it.first;
+        result += "=\"" + it.second + "\"";
+    }
+
+    result += " />";
+
+    /* Line break if not single line */
+    if(this->endLine)
+        result += "\n";
+
+    return result;
 }

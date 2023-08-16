@@ -3,38 +3,21 @@
 /* === Public member functions === */
 
 /* Constructors */
-XmlElement::XmlElement() {
-    this->setName("_default_element");
-    this->singleLine = false;
-    this->increment = true;
-}
-
-XmlElement::XmlElement(std::string const & name) {
-    this->setName(name);
-    this->singleLine = false;
-    this->increment = true;
-}
-
-XmlElement::XmlElement(std::string const & name, bool singleLine) {
-    this->setName(name);
-    this->singleLine = singleLine;
-    this->increment = !singleLine;
-}
-
-XmlElement::XmlElement(std::string const & name, std::map<char const *, std::string> & attributes, std::vector<Node *> & children, bool singleLine, bool increment) {
-    this->setName(name);
-    this->attributes = attributes;
-    this->children = children;
-    this->singleLine = singleLine;
-    this->increment = increment;
-}
-
-XmlElement::XmlElement(std::string const & name, std::map<char const *, std::string> & attributes, std::vector<Node *> & children, bool singleLine, bool increment, bool checkName) {
+XmlElement::XmlElement(std::string const & name, bool singleLine, bool endLine, bool indent, bool checkName) {
     this->setName(name, checkName);
+    this->singleLine = singleLine;
+    this->indent = indent;
+    this->endLine = endLine;
+}
+
+XmlElement::XmlElement(
+        std::string const & name, 
+        std::map<char const *, std::string> & attributes, std::vector<Node *> & children, 
+        bool singleLine, bool endLine, bool indent, bool checkName
+    ) : XmlElement(name, singleLine, endLine, indent, checkName) {
+
     this->attributes = attributes;
     this->children = children;
-    this->singleLine = singleLine;
-    this->increment = increment;
 }
 
 
@@ -85,19 +68,11 @@ bool XmlElement::getSingleLine(void) {
     return this->singleLine;
 }
 
-void XmlElement::setIncrement(bool increment) {
-    this->increment = increment;
-}
-
-bool XmlElement::getIncrement(void) {
-    return this->increment;
-}
-
 std::string XmlElement::print(int indentLevel) {
     /* Opening the element */
     std::string result;
     /* Indenting */
-    if(indentLevel > 0) {
+    if(indent && indentLevel > 0) {
         for(int i = 0; i < indentLevel; i++) {
             result += "\t";
         }
@@ -108,6 +83,7 @@ std::string XmlElement::print(int indentLevel) {
         result += it.first;
         result += "=\"" + it.second + "\"";
     }
+
     /* Closing normally, adding content if not empty */
     if(this->children.size() > 0) {
         result += ">";
@@ -116,7 +92,7 @@ std::string XmlElement::print(int indentLevel) {
         
         /* Adding child elements */
         for(auto it : this->children) {
-            if(!this->singleLine && this->increment)
+            if(!this->singleLine)
                 result += (*it).print(indentLevel + 1);
             else
                 result += (*it).print();
@@ -128,12 +104,15 @@ std::string XmlElement::print(int indentLevel) {
                 result += "\t";
             }
         }
-        result += "</" + this->name + ">\n";
+        result += "</" + this->name + ">";
     
     /* Self-closing empty element */
     } else {
-        result += " />\n";
+        result += " />";
     }
+
+    if(this->endLine)
+        result += "\n";
 
     return result;
 }

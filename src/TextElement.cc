@@ -28,59 +28,27 @@ std::string TextElement::escapeContent(std::string content) {
 }
 
 /* Constructors */
-TextElement::TextElement(void) {
-    this->setName("_default_text_element");
-    this->showTag = true;
-    this->escapeSpecial = true;
-    this->endLine = true;
-}
+TextElement::TextElement(
+        std::string name, std::string content, 
+        bool showTag, bool indent, bool escapeSpecial
+    ) : TextElement(name, content, showTag, indent, showTag, escapeSpecial) {}
 
-TextElement::TextElement(std::string name) {
-    this->setName(name);
-    this->showTag = true;
-    this->escapeSpecial = true;
-    this->endLine = true;
-}
-
-TextElement::TextElement(std::string name, std::string content) {
-    this->setName(name);
-    this->textContent = content;
-    this->showTag = true;
-    this->escapeSpecial = true;
-    this->endLine = true;
-}
-
-TextElement::TextElement(std::string name, std::string content, bool showTag) {
+TextElement::TextElement(std::string name, std::string content, bool showTag, bool indent, bool endLine, bool escapeSpecial) {
     this->setName(name);
     this->textContent = content;
     this->showTag = showTag;
-    this->escapeSpecial = true;
-    this->endLine = showTag;
-}
-
-TextElement::TextElement(std::string name, std::string content, bool showTag, bool endLine) {
-    this->setName(name);
-    this->textContent = content;
-    this->showTag = showTag;
-    this->escapeSpecial = true;
-    this->endLine = endLine;
-}
-
-TextElement::TextElement(std::string name, std::string content, bool showTag, bool endLine, bool escapeSpecial) {
-    this->setName(name);
-    this->textContent = content;
-    this->showTag = showTag;
+    this->indent= indent;
     this->escapeSpecial = escapeSpecial;
     this->endLine = endLine;
 }
 
-TextElement::TextElement(std::string name, std::string content, bool showTag, bool endLine, bool escapeSpecial, std::map<char const *, std::string> & attributes) {
-    this->setName(name);
-    this->textContent = content;
-    this->showTag = showTag;
+TextElement::TextElement(
+        std::string name, std::string content, 
+        bool showTag, bool indent, bool endLine, bool escapeSpecial, 
+        std::map<char const *, std::string> & attributes
+    ) : TextElement(name, content, showTag, indent, endLine, escapeSpecial) {
+        
     this->attributes = attributes;
-    this->escapeSpecial = escapeSpecial;
-    this->endLine = endLine;
 }
 
 /* Member functions */
@@ -104,10 +72,18 @@ bool TextElement::getShowTag(void) {
     return this->showTag;
 }
 
+void TextElement::setEscapeSpecial(bool escapeSpecial) {
+    this->escapeSpecial = escapeSpecial;
+}
+
+bool TextElement::getEscapeSpecial(void) {
+    return this->escapeSpecial;
+}
+
 std::string TextElement::print(int indentLevel) {
     std::string result;
     /* Indent at the start */
-    if(indentLevel > 0) {
+    if(indent && indentLevel > 0) {
         for(int i = 0; i < indentLevel; i++) {
             result += "\t";
         }
