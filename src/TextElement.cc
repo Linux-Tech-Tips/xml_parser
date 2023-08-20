@@ -1,9 +1,9 @@
 #include "TextElement.hh"
 
 /* Private member functions */
-std::string TextElement::escapeContent(std::string content) {
+std::string TextElement::escapeContent() {
     std::string result;
-    for(char & it : content) {
+    for(char & it : this->textContent) {
         switch(it) {
             case '"':
                 result += "&quot;";
@@ -29,11 +29,11 @@ std::string TextElement::escapeContent(std::string content) {
 
 /* Constructors */
 TextElement::TextElement(
-        std::string name, std::string content, 
+        std::string const & name, std::string const & content, 
         bool showTag, bool indent, bool escapeSpecial
     ) : TextElement(name, content, showTag, indent, showTag, escapeSpecial) {}
 
-TextElement::TextElement(std::string name, std::string content, bool showTag, bool indent, bool endLine, bool escapeSpecial) {
+TextElement::TextElement(std::string const & name, std::string const & content, bool showTag, bool indent, bool endLine, bool escapeSpecial) {
     this->setName(name);
     this->textContent = content;
     this->showTag = showTag;
@@ -42,19 +42,10 @@ TextElement::TextElement(std::string name, std::string content, bool showTag, bo
     this->endLine = endLine;
 }
 
-TextElement::TextElement(
-        std::string name, std::string content, 
-        bool showTag, bool indent, bool endLine, bool escapeSpecial, 
-        std::map<char const *, std::string> & attributes
-    ) : TextElement(name, content, showTag, indent, endLine, escapeSpecial) {
-        
-    this->attributes = attributes;
-}
-
 /* Member functions */
 
 /* Text content */
-void TextElement::setContent(std::string content) {
+void TextElement::setContent(std::string const & content) {
     this->textContent = content;
 }
 
@@ -68,7 +59,7 @@ void TextElement::setShowTag(bool showTag) {
     this->showTag = showTag;
 }
 
-bool TextElement::getShowTag(void) {
+bool TextElement::getShowTag(void) const {
     return this->showTag;
 }
 
@@ -76,7 +67,7 @@ void TextElement::setEscapeSpecial(bool escapeSpecial) {
     this->escapeSpecial = escapeSpecial;
 }
 
-bool TextElement::getEscapeSpecial(void) {
+bool TextElement::getEscapeSpecial(void) const {
     return this->escapeSpecial;
 }
 
@@ -101,7 +92,7 @@ std::string TextElement::print(int indentLevel) {
 
     /* Printing formatted text content */
     if(this->escapeSpecial) {
-        result += this->escapeContent(this->textContent);
+        result += this->escapeContent();
     } else {
         result += this->textContent;
     }
@@ -115,3 +106,6 @@ std::string TextElement::print(int indentLevel) {
     return result;
 }
 
+Node * TextElement::_copy() const {
+    return new TextElement(*this);
+}

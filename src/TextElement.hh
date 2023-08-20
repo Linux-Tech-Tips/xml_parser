@@ -27,8 +27,8 @@
 class TextElement: public Node {
 
     private:
-        /** Escapes any XML special characters in the given string */
-        std::string escapeContent(std::string content);
+        /** Escapes any XML special characters in the element's content */
+        std::string escapeContent();
 
     protected:
         /** Whether the XML tag with the name and attributes should be shown */
@@ -48,7 +48,7 @@ class TextElement: public Node {
          *  @param showTag whether the XML tag with the name and optionally attributes is shown
          *  @param escapeSpecial whether XML special characters should be escaped
         */
-        TextElement(std::string name = "_default_text_element", std::string content = "", bool showTag = true, bool indent = true, bool escapeSpecial = true);
+        TextElement(std::string const & name = "_default_text_element", std::string const & content = "", bool showTag = true, bool indent = true, bool escapeSpecial = true);
         /** Constructor
          *  @param name the name of the element
          *  @param content the text content of the element
@@ -56,16 +56,7 @@ class TextElement: public Node {
          *  @param endLine whether the element should end the line it's on
          *  @param escapeSpecial whether XML special characters should be escaped
         */
-        TextElement(std::string name, std::string content, bool showTag, bool indent, bool endLine, bool escapeSpecial);
-        /** Constructor
-         *  @param name the name of the element
-         *  @param content the text content of the element
-         *  @param showTag whether the XML tag with the name and optionally attributes is shown
-         *  @param endLine whether the element should end the line it's on
-         *  @param escapeSpecial whether XML special characters should be escaped
-         *  @param attributes initialize with this map of attributes instead of an empty one
-        */
-        TextElement(std::string name, std::string content, bool showTag, bool indent, bool endLine, bool escapeSpecial, std::map<char const *, std::string> & attributes);
+        TextElement(std::string const & name, std::string const & content, bool showTag, bool indent, bool endLine, bool escapeSpecial);
 
 
         /* Member functions */
@@ -74,7 +65,7 @@ class TextElement: public Node {
         /* Text content */
 
         /** Sets the text content of the element */
-        void setContent(std::string content);
+        void setContent(std::string const & content);
         /** Returns the current text content of the element */
         std::string getContent(void);
 
@@ -84,13 +75,18 @@ class TextElement: public Node {
         /** Sets whether the XML tag with the name and attributes should be shown */
         void setShowTag(bool showTag);
         /** Get whether the XML tag with the name and attributes is shown */
-        bool getShowTag(void);
+        bool getShowTag(void) const;
         /** Sets whether XML special characters should be escaped */
         void setEscapeSpecial(bool escapeSpecial);
         /** Gets whether XML special characters are to be escaped */
-        bool getEscapeSpecial(void);
+        bool getEscapeSpecial(void) const;
         /** Returns the processed XML with the text content using the specified settings */
         std::string print(int indentLevel = 0);
+
+        /** Creates a dynamically allocated copy of itself
+         * Used internally - if called by an end-user, make sure to delete the copy once not needed
+        */
+        Node * _copy() const;
 
 };
 

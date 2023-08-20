@@ -8,7 +8,6 @@ bool Node::checkName(std::string name, bool xmlReserved) {
 
 /* Constructors */
 
-/* TODO Refactor - pointless to pass address when the function called takes copy anyway */
 Node::Node(std::string const & name, bool endLine, bool indent) {
     this->setName(name);
     this->endLine = endLine;
@@ -19,7 +18,7 @@ Node::Node(std::string const & name, bool endLine, bool indent) {
 
 /* Name */
 
-void Node::setName(std::string name, bool checkName) {
+void Node::setName(std::string const & name, bool checkName) {
     if(checkName) {
         if(this->checkName(name)) {
             this->name = name;
@@ -53,11 +52,11 @@ void Node::delAttribute(char const * name) {
         this->attributes.erase(name);
 }
 
-size_t Node::getAttributeNumber(void) {
+size_t Node::getAttributeNumber(void) const {
     return this->attributes.size();
 }
 
-bool Node::isAttributeEmpty(void) {
+bool Node::isAttributeEmpty(void) const {
     return this->attributes.empty();
 }
 
@@ -68,7 +67,7 @@ void Node::setEndLine(bool endLine) {
     this->endLine = endLine;
 }
 
-bool Node::getEndLine(void) {
+bool Node::getEndLine(void) const {
     return this->endLine;
 }
 
@@ -76,7 +75,7 @@ void Node::setIndent(bool indent) {
     this->indent = indent;
 }
 
-bool Node::getIndent(void) {
+bool Node::getIndent(void) const {
     return this->indent;
 }
 
@@ -105,4 +104,8 @@ std::string Node::print(int indentLevel) {
         result += "\n";
 
     return result;
+}
+
+Node * Node::_copy() const {
+    return new Node(*this);
 }

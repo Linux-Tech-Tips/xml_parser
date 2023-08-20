@@ -55,7 +55,7 @@ class Node {
         /** Sets the name of the node
          *  @param checkName if true, checks whether given name XML-compliant
          */
-        virtual void setName(std::string name, bool checkName = true);
+        virtual void setName(std::string const & name, bool checkName = true);
         /** Returns the current name of the node */
         virtual std::string getName(void);
 
@@ -71,9 +71,9 @@ class Node {
         /** Deletes the attribute with the specified name */
         virtual void delAttribute(char const * name);
         /** Returns the current amount of existing attributes */
-        virtual size_t getAttributeNumber(void);
+        virtual size_t getAttributeNumber(void) const;
         /** Returns whether the attributes map is empty */
-        virtual bool isAttributeEmpty(void);
+        virtual bool isAttributeEmpty(void) const;
 
 
         /* Other */
@@ -81,13 +81,18 @@ class Node {
         /** Sets whether the element should end the line */
         virtual void setEndLine(bool EndLine);
         /** Gets whether the element ends the line */
-        virtual bool getEndLine(void);
+        virtual bool getEndLine(void) const;
         /** Sets whether the element should be indented */
         virtual void setIndent(bool indent);
         /** Gets whether the element is indented */
-        virtual bool getIndent(void);
+        virtual bool getIndent(void) const;
         /** Returns the processed XML of the current node's name and attributes in XML angle brackets */
         virtual std::string print(int indentLevel = 0);
+
+        /** Creates a dynamically allocated copy of itself
+         * Used internally - if called by an end-user, make sure to delete the copy once not needed
+        */
+        virtual Node * _copy() const;
 
 };
 

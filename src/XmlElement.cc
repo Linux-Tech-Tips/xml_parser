@@ -1,8 +1,9 @@
 #include "XmlElement.hh"
 
+
 /* === Public member functions === */
 
-/* Constructors */
+/* Constructor */
 XmlElement::XmlElement(std::string const & name, bool singleLine, bool endLine, bool indent, bool checkName) {
     this->setName(name, checkName);
     this->singleLine = singleLine;
@@ -10,22 +11,39 @@ XmlElement::XmlElement(std::string const & name, bool singleLine, bool endLine, 
     this->endLine = endLine;
 }
 
-XmlElement::XmlElement(
-        std::string const & name, 
-        std::map<char const *, std::string> & attributes, std::vector<Node *> & children, 
-        bool singleLine, bool endLine, bool indent, bool checkName
-    ) : XmlElement(name, singleLine, endLine, indent, checkName) {
+/* Copy constructor */
+XmlElement::XmlElement(XmlElement const & original) {
+    /* Copying all statically allocated members */
+    this->name = original.name;
+    this->singleLine = original.singleLine;
+    this->indent = original.indent;
+    this->endLine = original.endLine;
+    this->attributes = original.attributes;
 
-    this->attributes = attributes;
-    this->children = children;
+    /* Copying dynamically allocated child Nodes */
+    if(original.getChildAmount() > 0) {
+        for(auto it : original.children) {
+            this->pushBackChild(*it);
+        }
+    }
+}
+
+/* Destructor */
+XmlElement::~XmlElement() {
+    /* Deallocating any copies of child Nodes */
+    if(this->getChildAmount() > 0) {
+        for(auto it : this->children) {
+            delete it;
+        }
+    }
 }
 
 
 /* Member functions */
 
 /* Child elements */
-void XmlElement::addChild(int pos, Node & value) {
-    this->children.insert(this->children.begin() + pos, &value);
+void XmlElement::addChild(int pos, Node const & value) {
+    this->children.insert(this->children.begin() + pos, value._copy());
 }
 
 Node & XmlElement::getChild(int index) {
@@ -42,19 +60,19 @@ void XmlElement::delChild(int pos) {
         throw std::invalid_argument("Error: Can't erase at out-of-bounds index");
 }
 
-void XmlElement::pushBackChild(Node & value) {
-    this->children.push_back(&value);
+void XmlElement::pushBackChild(Node const & value) {
+    this->children.push_back(value._copy());
 }
 
 void XmlElement::popBackChild(void) {
     this->children.pop_back();
 }
 
-size_t XmlElement::getChildAmount(void) {
+size_t XmlElement::getChildAmount(void) const {
     return this->children.size();
 }
 
-bool XmlElement::childrenEmpty(void) {
+bool XmlElement::childrenEmpty(void) const {
     return this->children.empty();
 }
 
@@ -64,7 +82,7 @@ void XmlElement::setSingleLine(bool singleLine) {
     this->singleLine = singleLine;
 }
 
-bool XmlElement::getSingleLine(void) {
+bool XmlElement::getSingleLine(void) const {
     return this->singleLine;
 }
 
@@ -93,9 +111,9 @@ std::string XmlElement::print(int indentLevel) {
         /* Adding child elements */
         for(auto it : this->children) {
             if(!this->singleLine)
-                result += (*it).print(indentLevel + 1);
+                result += it->print(indentLevel + 1);
             else
-                result += (*it).print();
+                result += it->print();
         }
 
         /* Closing the element normally, with indents */
@@ -115,4 +133,8 @@ std::string XmlElement::print(int indentLevel) {
         result += "\n";
 
     return result;
+}
+
+Node * XmlElement::_copy() const {
+    return new XmlElement(*this);
 }
