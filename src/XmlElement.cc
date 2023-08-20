@@ -42,15 +42,10 @@ XmlElement::~XmlElement() {
 /* Member functions */
 
 /* Child elements */
+
+/* Add/delete */
 void XmlElement::addChild(int pos, Node const & value) {
     this->children.insert(this->children.begin() + pos, value._copy());
-}
-
-Node & XmlElement::getChild(int index) {
-    if(index < this->children.size())
-        return *this->children[index];
-    else
-        throw std::invalid_argument("Error: Element index out of bounds");
 }
 
 void XmlElement::delChild(int pos) {
@@ -68,12 +63,53 @@ void XmlElement::popBackChild(void) {
     this->children.pop_back();
 }
 
+/* Get a specific node */
+Node & XmlElement::getChild(int index) {
+    if(index < this->children.size())
+        return *this->children[index];
+    else
+        throw std::invalid_argument("Error: Element index out of bounds");
+}
+
+Node & XmlElement::getChild(char const * childName) {
+    int index;
+    if(this->findChild(childName, &index))
+        return *this->children[index];
+    else
+        throw std::invalid_argument("Error: Element not found");
+}
+
+/* Get general information about nested nodes in this element */
 size_t XmlElement::getChildAmount(void) const {
     return this->children.size();
 }
 
 bool XmlElement::childrenEmpty(void) const {
     return this->children.empty();
+}
+
+bool XmlElement::findChild(char const * nameToFind, int * index) {
+    /* Checks all child elements */
+    for(int i = 0; i < this->getChildAmount(); i++) {
+        if(this->children[i]->getName().compare(nameToFind) == 0) {
+            /* Returns and saves the index of the first instance found*/
+            *index = i;
+            return true;
+        }
+    }
+    /* Returns false and saves -1 if for loop finishes without finding any */
+    *index = -1;
+    return false;
+}
+
+bool XmlElement::findChild(char const * nameToFind) {
+    /* Checks all child elements, returns true on first match */
+    for(int i = 0; i < this->getChildAmount(); i++) {
+        if(this->children[i]->getName().compare(nameToFind) == 0)
+            return true;
+    }
+    /* Returns false if none found */
+    return false;
 }
 
 

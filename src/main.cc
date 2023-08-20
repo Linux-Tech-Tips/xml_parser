@@ -9,7 +9,6 @@
 /* First version - file_util demo - write/read files before working with XML */
 
 /* Temporary TODO Next: 
-    - Add member functions to get child by name
     - Make an XML Document class, which can load and save XML Documents
 */
 
@@ -34,8 +33,7 @@ int main() {
     /* Additional nodes */
     rootEl.getChild(0).setName("NestedElementZero");
     rootEl.getChild(1).setAttribute("internal_index", "1");
-    XmlElement & test = static_cast<XmlElement &>(rootEl.getChild(1));
-    test.pushBackChild(XmlElement("NestedElement3"));
+    static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(XmlElement("NestedElement3"));
 
     /* Adding paragraphs */
     static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(TextElement("p", "This is a text paragraph"));
@@ -46,6 +44,12 @@ int main() {
     paragraph.pushBackChild(TextElement("text3", "-like paragraph capability (in addition to pure XML). <3", false, false));
 
     static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(paragraph);
+
+    if(rootEl.findChild("NestedElementZero")) {
+        XmlElement & zero = static_cast<XmlElement &>(rootEl.getChild("NestedElementZero"));
+        zero.setAttribute("zeroth", "true");
+        zero.pushBackChild(TextElement("p", "this is the zero-th element, nice"));
+    }
 
     /* Printing again */
     std::cout << "2. The element is:" << std::endl << rootEl.print() << std::endl;

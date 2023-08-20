@@ -57,18 +57,32 @@ class XmlElement: public Node {
 
         /** Add a nested child element to the given position */
         void addChild(int pos, Node const & value);
-        /** Get a nested child element from the given position */
-        Node & getChild(int index);
         /** Delete a nested child element from the given position */
         void delChild(int pos);
+        
         /** Add a nested child element to the end of the list */
         void pushBackChild(Node const & value);
         /** Remove a nested child element from the back of the list */
         void popBackChild(void);
+        
+        /** Get a nested child element from the given position (throws std::invalid_argument if out of bounds) */
+        Node & getChild(int index);
+        /** Get a nested child element with the given name
+         * - throws std::invalid_argument if no such child - to avoid this,
+         *  use the function findChild(name) to make sure child exists first
+         * */
+        Node & getChild(char const * childName);
+        
         /** Get how many nested child elements are currently in this element */
         size_t getChildAmount(void) const;
         /** Get whether no children present (the list is empty) */
         bool childrenEmpty(void) const;
+        /** Returns whether a child element with the given name exists and saves the index of the first match 
+         * @param index the saved index; if index < 0, element was not found
+        */
+        bool findChild(char const * nameToFind, int * index);
+        /** Returns whether a child element with the given name exists */
+        bool findChild(char const * nameToFind);
 
 
         /* Other */
