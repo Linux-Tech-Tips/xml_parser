@@ -46,6 +46,7 @@ class TextElement: public Node {
          *  @param name the name of the element
          *  @param content the text content of the element
          *  @param showTag whether the XML tag with the name and optionally attributes is shown
+         *  @param indent whether the element should be indented if nested
          *  @param escapeSpecial whether XML special characters should be escaped
         */
         TextElement(std::string const & name = "_default_text_element", std::string const & content = "", bool showTag = true, bool indent = true, bool escapeSpecial = true);
@@ -53,6 +54,7 @@ class TextElement: public Node {
          *  @param name the name of the element
          *  @param content the text content of the element
          *  @param showTag whether the XML tag with the name and optionally attributes is shown
+         *  @param indent whether the element should be indented if nested
          *  @param endLine whether the element should end the line it's on
          *  @param escapeSpecial whether XML special characters should be escaped
         */

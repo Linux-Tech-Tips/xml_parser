@@ -41,6 +41,7 @@ class Node {
         /** Simple constructor 
          *  @param name the name of the Node
          *  @param endLine whether the Node should end the line it's on
+         *  @param indent whether the Node should be indented if nested
         */
         Node(std::string const & name = "_default_node", bool endLine = true, bool indent = true);
 
