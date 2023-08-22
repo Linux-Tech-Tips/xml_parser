@@ -83,7 +83,7 @@ std::string Node::print(int indentLevel) {
     std::string result;
     
     /* Indent if desired */
-    if(indent && indentLevel > 0) {
+    if(this->indent && indentLevel > 0) {
         for(int i = 0; i < indentLevel; i++)
             result += "\t";    
     }

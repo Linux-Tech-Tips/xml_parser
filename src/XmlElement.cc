@@ -126,7 +126,7 @@ std::string XmlElement::print(int indentLevel) {
     /* Opening the element */
     std::string result;
     /* Indenting */
-    if(indent && indentLevel > 0) {
+    if(this->indent && indentLevel > 0) {
         for(int i = 0; i < indentLevel; i++) {
             result += "\t";
         }
