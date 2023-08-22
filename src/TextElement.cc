@@ -1,7 +1,7 @@
 #include "TextElement.hh"
 
 /* Private member functions */
-std::string TextElement::escapeContent() {
+std::string TextElement::escapeContent(void) {
     std::string result;
     for(char & it : this->textContent) {
         switch(it) {
@@ -106,6 +106,6 @@ std::string TextElement::print(int indentLevel) {
     return result;
 }
 
-Node * TextElement::_copy() const {
+Node * TextElement::_copy(void) const {
     return new TextElement(*this);
 }

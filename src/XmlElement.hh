@@ -47,7 +47,7 @@ class XmlElement: public Node {
         /** Copy constructor - copies the XmlElement, along with all its child elements */
         XmlElement(XmlElement const & original);
 
-        ~XmlElement();
+        ~XmlElement(void);
 
 
         /* Member functions */
@@ -97,7 +97,7 @@ class XmlElement: public Node {
         /** Creates a dynamically allocated copy of itself
          * Used internally - if called by an end-user, make sure to delete the copy once not needed
         */
-        Node * _copy() const;
+        Node * _copy(void) const;
 
 };
 

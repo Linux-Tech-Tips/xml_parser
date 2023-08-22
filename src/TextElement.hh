@@ -28,7 +28,7 @@ class TextElement: public Node {
 
     private:
         /** Escapes any XML special characters in the element's content */
-        std::string escapeContent();
+        std::string escapeContent(void);
 
     protected:
         /** Whether the XML tag with the name and attributes should be shown */
@@ -86,7 +86,7 @@ class TextElement: public Node {
         /** Creates a dynamically allocated copy of itself
          * Used internally - if called by an end-user, make sure to delete the copy once not needed
         */
-        Node * _copy() const;
+        Node * _copy(void) const;
 
 };
 

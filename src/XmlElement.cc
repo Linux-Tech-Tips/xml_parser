@@ -29,7 +29,7 @@ XmlElement::XmlElement(XmlElement const & original) {
 }
 
 /* Destructor */
-XmlElement::~XmlElement() {
+XmlElement::~XmlElement(void) {
     /* Deallocating any copies of child Nodes */
     if(this->getChildAmount() > 0) {
         for(auto it : this->children) {
@@ -171,6 +171,6 @@ std::string XmlElement::print(int indentLevel) {
     return result;
 }
 
-Node * XmlElement::_copy() const {
+Node * XmlElement::_copy(void) const {
     return new XmlElement(*this);
 }

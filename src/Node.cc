@@ -106,6 +106,6 @@ std::string Node::print(int indentLevel) {
     return result;
 }
 
-Node * Node::_copy() const {
+Node * Node::_copy(void) const {
     return new Node(*this);
 }

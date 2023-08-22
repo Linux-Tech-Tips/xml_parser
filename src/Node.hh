@@ -45,7 +45,7 @@ class Node {
         Node(std::string const & name = "_default_node", bool endLine = true, bool indent = true);
 
         /* Destructor */
-        virtual ~Node() = default;
+        virtual ~Node(void) = default;
 
 
         /* Member functions */
@@ -92,7 +92,7 @@ class Node {
         /** Creates a dynamically allocated copy of itself
          * Used internally - if called by an end-user, make sure to delete the copy once not needed
         */
-        virtual Node * _copy() const;
+        virtual Node * _copy(void) const;
 
 };
 
