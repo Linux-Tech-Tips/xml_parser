@@ -1,7 +1,7 @@
-#include "XmlPrologElement.hh"
+#include "XmlProlog.hh"
 
 /* Constructor */
-XmlPrologElement::XmlPrologElement(
+XmlProlog::XmlProlog(
     std::string const & name, float xmlVersion, std::string const & encoding, const char * standalone, 
     bool endLine, bool indent, bool printUserAttributes) {
 
@@ -19,45 +19,45 @@ XmlPrologElement::XmlPrologElement(
 
 /* Default XML prolog parameter member function */
 
-void XmlPrologElement::setXmlVersion(float xmlVersion) {
+void XmlProlog::setXmlVersion(float xmlVersion) {
     this->xmlVersion = xmlVersion;
 }
 
-float XmlPrologElement::getXmlVersion(void) {
+float XmlProlog::getXmlVersion(void) {
     return this->xmlVersion;
 }
 
 
-void XmlPrologElement::setEncoding(std::string const & encoding) {
+void XmlProlog::setEncoding(std::string const & encoding) {
     this->encoding = encoding;
 }
 
-std::string XmlPrologElement::getEncoding(void) {
+std::string XmlProlog::getEncoding(void) {
     return this->encoding;
 }
 
 
-void XmlPrologElement::setStandalone(char const * standalone) {
+void XmlProlog::setStandalone(char const * standalone) {
     this->standalone = standalone;
 }
 
-char const * XmlPrologElement::getStandalone(void) {
+char const * XmlProlog::getStandalone(void) {
     return this->standalone;
 }
 
 
-void XmlPrologElement::setUserAttributes(bool printUserAttributes) {
+void XmlProlog::setUserAttributes(bool printUserAttributes) {
     this->printUserAttributes = printUserAttributes;
 }
 
-bool XmlPrologElement::getUserAttributes(void) {
+bool XmlProlog::getUserAttributes(void) {
     return this->printUserAttributes;
 }
 
 
 /* Other member functions */
 
-std::string XmlPrologElement::print(int indentLevel) {
+std::string XmlProlog::print(int indentLevel) {
     std::string result;
 
     if(this->indent && indentLevel > 0) {
@@ -94,6 +94,6 @@ std::string XmlPrologElement::print(int indentLevel) {
 }
 
 
-Node * XmlPrologElement::_copy(void) const {
-    return new XmlPrologElement(*this);
+Node * XmlProlog::_copy(void) const {
+    return new XmlProlog(*this);
 }

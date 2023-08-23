@@ -49,7 +49,7 @@ void XmlElement::addChild(int pos, Node const & value) {
 }
 
 void XmlElement::delChild(int pos) {
-    if(pos < this->children.size())
+    if((size_t)pos < this->children.size())
         this->children.erase(this->children.begin() + pos);
     else
         throw std::invalid_argument("Error: Can't erase at out-of-bounds index");
@@ -65,7 +65,7 @@ void XmlElement::popBackChild(void) {
 
 /* Get a specific node */
 Node & XmlElement::getChild(int index) {
-    if(index < this->children.size())
+    if((size_t)index < this->children.size())
         return *this->children[index];
     else
         throw std::invalid_argument("Error: Element index out of bounds");
@@ -90,7 +90,7 @@ bool XmlElement::childrenEmpty(void) const {
 
 bool XmlElement::findChild(char const * nameToFind, int * index) {
     /* Checks all child elements */
-    for(int i = 0; i < this->getChildAmount(); i++) {
+    for(size_t i = 0; i < this->getChildAmount(); i++) {
         if(this->children[i]->getName().compare(nameToFind) == 0) {
             /* Returns and saves the index of the first instance found*/
             *index = i;
@@ -104,7 +104,7 @@ bool XmlElement::findChild(char const * nameToFind, int * index) {
 
 bool XmlElement::findChild(char const * nameToFind) {
     /* Checks all child elements, returns true on first match */
-    for(int i = 0; i < this->getChildAmount(); i++) {
+    for(size_t i = 0; i < this->getChildAmount(); i++) {
         if(this->children[i]->getName().compare(nameToFind) == 0)
             return true;
     }

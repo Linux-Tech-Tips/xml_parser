@@ -38,7 +38,7 @@ DEPS_DIR := .dependencies
 DOCS_DIR := doxygen_doc
 
 # Additional compiler/linker flags
-CFLAGS := 
+CFLAGS := -Wall
 LDFLAGS := 
 
 # Documentation

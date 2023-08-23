@@ -12,7 +12,6 @@
 
 #include "Node.hh"
 
-
 /** 
  * @class ProcessingInstruction
  * @author Linux-Tech-Tips

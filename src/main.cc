@@ -5,7 +5,7 @@
 #include "Node.hh"
 #include "XmlElement.hh"
 #include "TextElement.hh"
-#include "XmlPrologElement.hh"
+#include "XmlProlog.hh"
 
 /* First version - file_util demo - write/read files before working with XML */
 
@@ -53,7 +53,7 @@ int main() {
     }
 
     /* XML Document prolog */
-    XmlPrologElement prlg("xml_prolog", 1.0f, "UTF-8", STANDALONE_YES);
+    XmlProlog prlg("xml_prolog", 1.0f, "UTF-8", STANDALONE_YES);
 
     /* Printing again */
     std::cout << "2. The element is:" << std::endl << prlg.print() << rootEl.print() << std::endl;

@@ -1,5 +1,5 @@
 /**
- * @file XmlPrologElement.hh
+ * @file XmlProlog.hh
  * @author Linux-Tech-Tips
  * @brief XML Prolog element class declaration header
  *
@@ -21,15 +21,15 @@
 #define STANDALONE_UNSET ""
 
 /** 
- * @class XmlPrologElement
+ * @class XmlProlog
  * @author Linux-Tech-Tips
  * @brief XML Prolog Element class
  * 
  * The element containing an XML Prolog, including the valid attributes - version, encoding and standalone
 */
-class XmlPrologElement : public Node {
+class XmlProlog : public Node {
 
-    private:
+    protected:
         /** The version of the XML document, as defined in the prolog */
         float xmlVersion;
         /** The encoding of the XML document, as defined in the prolog */
@@ -49,7 +49,7 @@ class XmlPrologElement : public Node {
          *  @param indent whether the element should be indented if nested
          *  @param printUserAttributes whether user-defined additional attributes are printed - the recommended value is 'false'
         */
-        XmlPrologElement(std::string const & name = "_default_prolog_element", float xmlVersion = 1.0f, std::string const & encoding = "", const char * standalone = STANDALONE_UNSET, bool endLine = true, bool indent = false, bool printUserAttributes = false);
+        XmlProlog(std::string const & name = "_default_prolog_element", float xmlVersion = 1.0f, std::string const & encoding = "", const char * standalone = STANDALONE_UNSET, bool endLine = true, bool indent = false, bool printUserAttributes = false);
 
         /* Default XML prolog parameter member function */
 

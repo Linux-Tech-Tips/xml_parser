@@ -26,7 +26,7 @@
 */
 class TextElement: public Node {
 
-    private:
+    protected:
         /** Escapes any XML special characters in the element's content */
         std::string escapeContent(void);
 
