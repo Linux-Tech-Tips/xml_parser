@@ -49,6 +49,11 @@
 /** !ENTITY DTD */
 #define DTD_ENTITY "ENTITY"
 
+/** SYSTEM DTD identifier */
+#define DTD_SYSTEM "SYSTEM"
+/** PUBLIC DTD identifier */
+#define DTD_PUBLIC "PUBLIC"
+
 
 /** 
  * @class DTD
@@ -62,7 +67,7 @@
 */
 class DTD : public Node {
 
-    private:
+    protected:
         /** The type of the DTD, to be set using the defined constants */
         std::string type;
 
@@ -79,7 +84,7 @@ class DTD : public Node {
         void setContent(std::string const & content);
 
         /** Returns the current value of the 'content' attribute */
-        std::string getContent(void);
+        std::string getContent(void) const;
 
         /** Removes any content from this attribute */
         void delContent(void);

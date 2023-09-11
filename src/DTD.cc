@@ -17,7 +17,7 @@ void DTD::setContent(std::string const & content) {
     this->setAttribute("content", content);
 }
 
-std::string DTD::getContent(void) {
+std::string DTD::getContent(void) const {
     return this->getAttribute("content");
 }
 

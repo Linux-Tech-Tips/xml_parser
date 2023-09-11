@@ -40,9 +40,9 @@ void Node::setAttribute(char const * name, std::string const & value) {
     this->attributes[name] = value;
 }
 
-std::string Node::getAttribute(char const * name) {
+std::string Node::getAttribute(char const * name) const {
     if(this->attributes.find(name) != this->attributes.end())
-        return this->attributes[name];
+        return this->attributes.at(name);
     else
         return "";
 }

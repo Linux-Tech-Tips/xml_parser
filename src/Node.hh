@@ -68,7 +68,7 @@ class Node {
          */
         virtual void setAttribute(char const * name, std::string const & value);
         /** Returns the current value of the attribute with the given name */
-        virtual std::string getAttribute(char const * name);
+        virtual std::string getAttribute(char const * name) const;
         /** Deletes the attribute with the specified name */
         virtual void delAttribute(char const * name);
         /** Returns the current amount of existing attributes */
