@@ -48,5 +48,5 @@ std::string DTD::print(int indentLevel) {
 }
 
 Node * DTD::_copy(void) const {
-    return new Node(*this);
+    return new DTD(*this);
 }

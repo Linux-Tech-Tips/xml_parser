@@ -78,7 +78,7 @@ class DTD : public Node {
          *  @param indent whether the DTD should be indented if nested
          *  @param endLine whether the DTD should end the line it's on
         */
-        DTD(std::string const & name = "_default_base_DTD", std::string const & type = DTD_DOCTYPE, std::string const & content = "", bool indent = false, bool endLine = true);
+        DTD(std::string const & name = "_default_base_DTD", std::string const & type = DTD_DOCTYPE, std::string const & content = "", bool indent = true, bool endLine = true);
 
         /** Sets the 'content' attribute to the desired content */
         void setContent(std::string const & content);

@@ -7,6 +7,7 @@
 #include "TextElement.hh"
 #include "XmlProlog.hh"
 #include "DTD.hh"
+#include "DoctypeDTD.hh"
 
 /* First version - file_util demo - write/read files before working with XML */
 
@@ -57,7 +58,12 @@ int main() {
     XmlProlog prlg("xml_prolog", 1.0f, "UTF-8", STANDALONE_YES);
 
     /* XML DTD Document type declaration */
-    DTD doctype("doctype", "DOCTYPE", "html", false, true);
+    DoctypeDTD doctype("doctype", "html");
+    doctype.setExtLink("ext.dtd");
+    doctype.setExtType(DTD_PUBLIC);
+    doctype.pushBackChild(DTD("_dtd_1", DTD_ENTITY, "test"));
+    doctype.pushBackChild(DTD("_dtd_1", DTD_ATTRIBUTES, "another test"));
+    doctype.pushBackChild(DTD("_dtd_1", DTD_ATTRIBUTES, "another test (test1, test2)"));
 
     /* Printing again */
     std::cout << "2. The element is:" << std::endl << prlg.print() << doctype.print() << rootEl.print() << std::endl;
