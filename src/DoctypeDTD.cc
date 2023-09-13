@@ -95,7 +95,7 @@ Node * DoctypeDTD::getChild(int pos) {
 Node * DoctypeDTD::getChild(std::string const & name) {
     int index;
     if(this->findChild(name.c_str(), &index))
-        return this->children.at(index);
+        return this->children.at((size_t)index);
     else
         return nullptr;
 }
@@ -112,7 +112,8 @@ bool DoctypeDTD::findChild(char const * nameToFind, int * index) {
     /* Check all child elements */
     for(size_t i = 0; i < this->getChildAmount(); i++) {
         if(this->children.at(i)->getName().compare(nameToFind) == 0) {
-            *index = i;
+            if(index)
+                *index = i;
             return true;
         }
     }

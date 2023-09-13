@@ -34,24 +34,24 @@ int main() {
     std::cout << "1. The element is:" << std::endl << rootEl.print() << std::endl;
 
     /* Additional nodes */
-    rootEl.getChild(0).setName("NestedElementZero");
-    rootEl.getChild(1).setAttribute("internal_index", "1");
-    static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(XmlElement("NestedElement3"));
+    rootEl.getChild(0)->setName("NestedElementZero");
+    rootEl.getChild(1)->setAttribute("internal_index", "1");
+    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(XmlElement("NestedElement3"));
 
     /* Adding paragraphs */
-    static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(TextElement("p", "This is a text paragraph"));
+    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(TextElement("p", "This is a text paragraph"));
 
     XmlElement paragraph("p", true);
     paragraph.pushBackChild(TextElement("text1", "This \"is\" a showcase of ", false, false));
     paragraph.pushBackChild(TextElement("b", "HTML", true, false, false, true));
     paragraph.pushBackChild(TextElement("text3", "-like paragraph capability (in addition to pure XML). <3", false, false));
 
-    static_cast<XmlElement &>(rootEl.getChild(1)).pushBackChild(paragraph);
+    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(paragraph);
 
     if(rootEl.findChild("NestedElementZero")) {
-        XmlElement & zero = static_cast<XmlElement &>(rootEl.getChild("NestedElementZero"));
-        zero.setAttribute("zeroth", "true");
-        zero.pushBackChild(TextElement("p", "this is the zero-th element, nice"));
+        XmlElement * zero = dynamic_cast<XmlElement *>(rootEl.getChild("NestedElementZero"));
+        zero->setAttribute("zeroth", "true");
+        zero->pushBackChild(TextElement("p", "this is the zero-th element, nice"));
     }
 
     /* XML Document prolog */
@@ -62,8 +62,15 @@ int main() {
     doctype.setExtLink("ext.dtd");
     doctype.setExtType(DTD_PUBLIC);
     doctype.pushBackChild(DTD("_dtd_1", DTD_ENTITY, "test"));
-    doctype.pushBackChild(DTD("_dtd_1", DTD_ATTRIBUTES, "another test"));
-    doctype.pushBackChild(DTD("_dtd_1", DTD_ATTRIBUTES, "another test (test1, test2)"));
+    doctype.pushBackChild(DTD("_dtd_2", DTD_ATTRIBUTES, "another test"));
+    doctype.pushBackChild(DTD("_dtd_3", DTD_ATTRIBUTES, "another test (test1, test2)"));
+
+    if(doctype.findChild("_dtd_1"))
+        std::cout << "FOUND" << std::endl;
+
+    int t;
+    if(doctype.findChild("_dtd_2", &t))
+        std::cout << "FOUND AT " << t << std::endl;
 
     /* Printing again */
     std::cout << "2. The element is:" << std::endl << prlg.print() << doctype.print() << rootEl.print() << std::endl;

@@ -64,25 +64,21 @@ class XmlElement: public Node {
         void pushBackChild(Node const & value);
         /** Remove a nested child element from the back of the list */
         void popBackChild(void);
-        
-        /** Get a nested child element from the given position (throws std::invalid_argument if out of bounds) */
-        Node & getChild(int index);
-        /** Get a nested child element with the given name
-         * - throws std::invalid_argument if no such child - to avoid this,
-         *  use the function findChild(name) to make sure child exists first
-         * */
-        Node & getChild(char const * childName);
+
+        /** Get a pointer to the nested child element from the given position (or null pointer if out of bounds) */
+        Node * getChild(int index);
+        /** Get a pointer to the nested child element with the given name (or null pointer if not found) */
+        Node * getChild(char const * childName);
         
         /** Get how many nested child elements are currently in this element */
         size_t getChildAmount(void) const;
         /** Get whether no children present (the list is empty) */
         bool childrenEmpty(void) const;
-        /** Returns whether a child element with the given name exists and saves the index of the first match 
-         * @param index the saved index; if index < 0, element was not found
+
+        /** Returns whether a child element with the given name exists and saves the index of the first match
+         * @param index the saved index; if index < 0, element was not found (pass nullptr to not save index)
         */
-        bool findChild(char const * nameToFind, int * index);
-        /** Returns whether a child element with the given name exists */
-        bool findChild(char const * nameToFind);
+        bool findChild(char const * nameToFind, int * index = nullptr);
 
 
         /* Other */

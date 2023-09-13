@@ -64,19 +64,19 @@ void XmlElement::popBackChild(void) {
 }
 
 /* Get a specific node */
-Node & XmlElement::getChild(int index) {
+Node * XmlElement::getChild(int index) {
     if((size_t)index < this->children.size())
-        return *this->children[index];
+        return this->children.at((size_t)index);
     else
-        throw std::invalid_argument("Error: Element index out of bounds");
+        return nullptr;
 }
 
-Node & XmlElement::getChild(char const * childName) {
+Node * XmlElement::getChild(char const * childName) {
     int index;
     if(this->findChild(childName, &index))
-        return *this->children[index];
+        return this->children.at((size_t)index);
     else
-        throw std::invalid_argument("Error: Element not found");
+        return nullptr;
 }
 
 /* Get general information about nested nodes in this element */
@@ -93,22 +93,13 @@ bool XmlElement::findChild(char const * nameToFind, int * index) {
     for(size_t i = 0; i < this->getChildAmount(); i++) {
         if(this->children[i]->getName().compare(nameToFind) == 0) {
             /* Returns and saves the index of the first instance found*/
-            *index = i;
+            if(index)
+                *index = i;
             return true;
         }
     }
     /* Returns false and saves -1 if for loop finishes without finding any */
     *index = -1;
-    return false;
-}
-
-bool XmlElement::findChild(char const * nameToFind) {
-    /* Checks all child elements, returns true on first match */
-    for(size_t i = 0; i < this->getChildAmount(); i++) {
-        if(this->children[i]->getName().compare(nameToFind) == 0)
-            return true;
-    }
-    /* Returns false if none found */
     return false;
 }
 
