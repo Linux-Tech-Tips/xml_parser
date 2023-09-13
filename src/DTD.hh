@@ -54,6 +54,13 @@
 /** PUBLIC DTD identifier */
 #define DTD_PUBLIC "PUBLIC"
 
+/** DTD PCDATA (Parsed character data) content type */
+#define DTD_PCDATA "#PCDATA"
+/** DTD EMPTY content type */
+#define DTD_EMPTY "EMPTY"
+/** DTD ANY content type */
+#define DTD_ANY "ANY"
+
 
 /** 
  * @class DTD
@@ -81,10 +88,10 @@ class DTD : public Node {
         DTD(std::string const & name = "_default_base_DTD", std::string const & type = DTD_DOCTYPE, std::string const & content = "", bool indent = true, bool endLine = true);
 
         /** Sets the 'content' attribute to the desired content */
-        void setContent(std::string const & content);
+        virtual void setContent(std::string const & content);
 
         /** Returns the current value of the 'content' attribute */
-        std::string getContent(void) const;
+        virtual std::string getContent(void) const;
 
         /** Removes any content from this attribute */
         void delContent(void);

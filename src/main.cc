@@ -8,6 +8,7 @@
 #include "XmlProlog.hh"
 #include "DTD.hh"
 #include "DoctypeDTD.hh"
+#include "ElementDTD.hh"
 
 /* First version - file_util demo - write/read files before working with XML */
 
@@ -61,9 +62,17 @@ int main() {
     DoctypeDTD doctype("doctype", "html");
     doctype.setExtLink("ext.dtd");
     doctype.setExtType(DTD_PUBLIC);
-    doctype.pushBackChild(DTD("_dtd_1", DTD_ENTITY, "test"));
-    doctype.pushBackChild(DTD("_dtd_2", DTD_ATTRIBUTES, "another test"));
-    doctype.pushBackChild(DTD("_dtd_3", DTD_ATTRIBUTES, "another test (test1, test2)"));
+    doctype.pushBackChild(DTD("_dtd_1", "CUSTOM_DTD", "test"));
+    doctype.pushBackChild(ElementDTD("_dtd_2", "element1", DTD_EMPTY));
+    doctype.pushBackChild(ElementDTD("_dtd_3", "element2", DTD_ANY));
+
+    ElementDTD seqElement("_dtd_4", "element3");
+    std::string content [5] = {"one", "two", "three", "four", "five"};
+    seqElement.setContent(content, 5);
+    seqElement.addContentValue("six");
+    seqElement.addContentValue("(seven | eight)");
+
+    doctype.pushBackChild(seqElement);
 
     if(doctype.findChild("_dtd_1"))
         std::cout << "FOUND" << std::endl;
