@@ -34,10 +34,10 @@ class ElementDTD : public DTD {
          *  @param name the internal identifying name of the element, not displayed
          *  @param elementName the name of the element which the DTD describes
          *  @param content the content of the element description (rendered in parentheses)
-         *  @param endLine whether the DTD should end the line it's on
          *  @param indent whether the DTD should be indented if nested
+         *  @param endLine whether the DTD should end the line it's on
         */
-        ElementDTD(std::string const & name = "_default_element_dtd", std::string const & elementName = "default_element", std::string const & content = "", bool endLine = true, bool indent = true);
+        ElementDTD(std::string const & name = "_default_element_dtd", std::string const & elementName = "default_element", std::string const & content = "", bool indent = true, bool endLine = true);
 
         /** Sets the content of the element to a list of the specified values. 
          * To specify a nested XOR within a comma-separated sequence, specify the whole bracket-enclosed item as a single string

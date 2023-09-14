@@ -39,10 +39,10 @@ class DoctypeDTD : public DTD {
          *  @param name the internal identifying name of the element, not displayed
          *  @param rootElement the root element of the XML document, to be specified in the Doctype DTD
          *  @param singleLine whether the nested child DTD elements should be on the same line as the DTD or the following line
-         *  @param endLine whether the DTD should end the line it's on
          *  @param indent whether the DTD should be indented if nested
+         *  @param endLine whether the DTD should end the line it's on
         */
-        DoctypeDTD(std::string const & name = "_default_doctype_dtd", std::string const & rootElement = "default_element", bool singleLine = false, bool endLine = true, bool indent = false);
+        DoctypeDTD(std::string const & name = "_default_doctype_dtd", std::string const & rootElement = "default_element", bool singleLine = false, bool indent = false, bool endLine = true);
 
         /** Copy constructor */
         DoctypeDTD(DoctypeDTD const & original);
