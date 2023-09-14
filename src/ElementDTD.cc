@@ -6,15 +6,15 @@ ElementDTD::ElementDTD(std::string const & name, std::string const & elementName
     this->setName(name, false);
     this->type = DTD_ELEMENT;
     this->setAttribute("element_name", elementName);
-    this->setAttribute("content", content);
+    this->setAttribute("element_content", content);
     this->endLine = endLine;
     this->indent = indent;
 }
 
 
-/* Other functions */
+/* Specific content manipulation member functions */
 
-void ElementDTD::setContent(std::string const * const contentValues, size_t amount, bool mixedContent) {
+void ElementDTD::setElementContent(std::string const * const contentValues, size_t amount, bool mixedContent) {
     if(amount > 0) {
         std::string tmpContent;
 
@@ -27,18 +27,59 @@ void ElementDTD::setContent(std::string const * const contentValues, size_t amou
         tmpContent += contentValues[i];
 
         /* Setting the content attribute */
-        this->setAttribute("content", tmpContent);
+        this->setAttribute("element_content", tmpContent);
     }
 }
 
-void ElementDTD::setContent(std::string const & content) {
-    this->setAttribute("content", content);
+void ElementDTD::setElementContent(std::string const & content) {
+    this->setAttribute("element_content", content);
 }
 
-void ElementDTD::addContentValue(std::string const & contentValue, bool mixedContent) {
+void ElementDTD::addElementContent(std::string const & contentValue, bool mixedContent) {
     /* Appending content to existing, with the desired separator */
-    this->setAttribute("content", this->getAttribute("content") + (mixedContent ? " | " : ", ") + contentValue);
+    this->setAttribute("element_content", this->getAttribute("element_content") + (mixedContent ? " | " : ", ") + contentValue);
 }
+
+std::string ElementDTD::getElementContent(void) const {
+    return this->getAttribute("element_content");
+}
+
+void ElementDTD::setElementName(std::string const & elementName) {
+    this->setAttribute("element_name", elementName);
+}
+
+std::string ElementDTD::getElementName(void) const {
+    return this->getAttribute("element_name");
+}
+
+
+/* General content manipulation member functions */
+
+void ElementDTD::setContent(std::string const & elementName, std::string const * const contentValues, size_t amount, bool mixedContent) {
+    this->setElementName(elementName);
+    this->setElementContent(contentValues, amount, mixedContent);
+}
+
+/** Sets all the available content fields of the Element DTD, with a directly specified Element content string */
+void ElementDTD::setContent(std::string const & elementName, std::string const & elementContent) {
+    this->setElementName(elementName);
+    this->setElementContent(elementContent);
+}
+
+/** Saves all the available content fields of the Element DTD to the given parameters */
+void ElementDTD::getContent(std::string & elementName, std::string & elementContent) const {
+    elementName = this->getElementName();
+    elementContent = this->getElementContent();
+}
+
+/** Removes all the recognized content fields from the DTD */
+void ElementDTD::delContent(void) {
+    this->delAttribute("element_name");
+    this->delAttribute("element_content");
+}
+
+
+/* Other functions */
 
 std::string ElementDTD::print(int indentLevel) {
     std::string result;
@@ -53,10 +94,10 @@ std::string ElementDTD::print(int indentLevel) {
 
     result += this->getAttribute("element_name") + " ";
 
-    if(this->getAttribute("content").compare(DTD_CONTENT_EMPTY) == 0 || this->getAttribute("content").compare(DTD_CONTENT_ANY) == 0) {
-        result += this->getAttribute("content");
+    if(this->getAttribute("element_content").compare(DTD_CONTENT_EMPTY) == 0 || this->getAttribute("element_content").compare(DTD_CONTENT_ANY) == 0) {
+        result += this->getAttribute("element_content");
     } else {
-        result += "(" + this->getAttribute("content") + ")";
+        result += "(" + this->getAttribute("element_content") + ")";
     }
 
     /* End, with linebreak if desired */

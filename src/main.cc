@@ -68,9 +68,9 @@ int main() {
 
     ElementDTD seqElement("_dtd_4", "element3");
     std::string content [5] = {"one", "two", "three", "four", "five"};
-    seqElement.setContent(content, 5);
-    seqElement.addContentValue("six");
-    seqElement.addContentValue("(seven | eight)");
+    seqElement.setElementContent(content, 5);
+    seqElement.addElementContent("six");
+    seqElement.addElementContent("(seven | eight)");
 
     doctype.pushBackChild(seqElement);
 
@@ -80,6 +80,12 @@ int main() {
     int t;
     if(doctype.findChild("_dtd_2", &t))
         std::cout << "FOUND AT " << t << std::endl;
+    
+    std::string gotContent;
+    ((DTD *)doctype.getChild(0))->getContent(gotContent);
+    std::cout << "CONTENT: " << gotContent << std::endl;
+
+    doctype.setContent("this is content");
 
     /* Printing again */
     std::cout << "2. The element is:" << std::endl << prlg.print() << doctype.print() << rootEl.print() << std::endl;

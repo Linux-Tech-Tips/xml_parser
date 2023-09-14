@@ -54,7 +54,10 @@ std::string DoctypeDTD::getExtType(void) const {
 }
 
 void DoctypeDTD::setExtLink(std::string const & extLink) {
-    this->setAttribute("ext_link", extLink);
+    if(extLink.empty())
+        this->delAttribute("ext_link");
+    else
+        this->setAttribute("ext_link", extLink);
 }
 
 std::string DoctypeDTD::getExtLink(void) const {
@@ -62,6 +65,27 @@ std::string DoctypeDTD::getExtLink(void) const {
 }
 
 void DoctypeDTD::unsetExt(void) {
+    this->delAttribute("ext_type");
+    this->delAttribute("ext_link");
+}
+
+
+/* Content management member functions */
+
+void DoctypeDTD::setContent(std::string const & rootElement, std::string const & extType, std::string const & extLink) {
+    this->setRootElement(rootElement);
+    this->setExtType(extType);
+    this->setExtLink(extLink);
+}
+
+void DoctypeDTD::getContent(std::string & rootElement, std::string & extType, std::string & extLink) const {
+    rootElement = this->getRootElement();
+    extType = this->getExtType();
+    extLink = this->getExtLink();
+}
+
+void DoctypeDTD::delContent(void) {
+    this->delAttribute("root_element");
     this->delAttribute("ext_type");
     this->delAttribute("ext_link");
 }

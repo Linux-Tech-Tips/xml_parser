@@ -102,6 +102,7 @@
  * The inherited name serves as a unique identifier and is not displayed.
  * Each inheriting DTD subclass uses attributes its way, for the purposes of the specific DTD. This usage is described for each class.
  * For the base class, the only recognised attribute is 'content', which is displayed in the element.
+ * Content manipulation member functions are overloaded in inheriting classes, to get/set all the available content of the given DTD type.
 */
 class DTD : public Node {
 
@@ -121,10 +122,10 @@ class DTD : public Node {
         /** Sets the 'content' attribute to the desired content */
         virtual void setContent(std::string const & content);
 
-        /** Returns the current value of the 'content' attribute */
-        virtual std::string getContent(void) const;
+        /** Saves the current value of the 'content' attribute to the given parameter */
+        virtual void getContent(std::string & content) const;
 
-        /** Removes any content from this attribute */
+        /** Removes any content from this element */
         void delContent(void);
 
         /** Returns the processed XML of the DTD */

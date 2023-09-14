@@ -62,13 +62,25 @@ class DoctypeDTD : public DTD {
         /** Gets the current value of the 'ext_type' attribute */
         std::string getExtType(void) const;
 
-        /** Sets the 'ext_link' attribute (the link to the external DTD) to the specified value */
+        /** Sets the 'ext_link' attribute (the link to the external DTD) to the specified value. If an empty string is specified, the attribute is unset */
         void setExtLink(std::string const & extLink);
         /** Gets the current value of the 'ext_link' attribute */
         std::string getExtLink(void) const;
 
         /** Unsets  the 'ext_link' and 'ext_type' attributes */
         void unsetExt(void);
+
+
+        /* Content management member functions */
+
+        /** Sets all the available content fields to the given values (if empty string specified for extLink, the attribute is unset) */
+        void setContent(std::string const & rootElement, std::string const & extType = "", std::string const & extLink = "");
+
+        /** Saves all the available content fields to the given variables (if empty string saved, the content is unset) */
+        void getContent(std::string & rootElement, std::string & extType, std::string & extLink) const;
+
+        /** Removes all the supported content fields */
+        void delContent(void);
 
 
         /* Child DTD management member functions */
