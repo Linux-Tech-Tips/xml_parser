@@ -142,7 +142,7 @@ std::string DoctypeDTD::print(int indentLevel) {
         if(this->attributes.find("ext_type") != this->attributes.end())
             result += " " + this->getExtType();
         else
-            result += " " DTD_SYSTEM;
+            result += " " DTD_EXTERN_SYSTEM;
         
         /* Adding specified link */
         result += " \"" + this->getExtLink() + "\"";

@@ -61,10 +61,10 @@ int main() {
     /* XML DTD Document type declaration */
     DoctypeDTD doctype("doctype", "html");
     doctype.setExtLink("ext.dtd");
-    doctype.setExtType(DTD_PUBLIC);
+    doctype.setExtType(DTD_EXTERN_PUBLIC);
     doctype.pushBackChild(DTD("_dtd_1", "CUSTOM_DTD", "test"));
-    doctype.pushBackChild(ElementDTD("_dtd_2", "element1", DTD_EMPTY));
-    doctype.pushBackChild(ElementDTD("_dtd_3", "element2", DTD_ANY));
+    doctype.pushBackChild(ElementDTD("_dtd_2", "element1", DTD_CONTENT_EMPTY));
+    doctype.pushBackChild(ElementDTD("_dtd_3", "element2", DTD_CONTENT_ANY));
 
     ElementDTD seqElement("_dtd_4", "element3");
     std::string content [5] = {"one", "two", "three", "four", "five"};

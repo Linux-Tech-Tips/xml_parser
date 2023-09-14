@@ -53,7 +53,7 @@ std::string ElementDTD::print(int indentLevel) {
 
     result += this->getAttribute("element_name") + " ";
 
-    if(this->getAttribute("content").compare(DTD_EMPTY) == 0 || this->getAttribute("content").compare(DTD_ANY) == 0) {
+    if(this->getAttribute("content").compare(DTD_CONTENT_EMPTY) == 0 || this->getAttribute("content").compare(DTD_CONTENT_ANY) == 0) {
         result += this->getAttribute("content");
     } else {
         result += "(" + this->getAttribute("content") + ")";

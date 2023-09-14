@@ -49,17 +49,48 @@
 /** !ENTITY DTD */
 #define DTD_ENTITY "ENTITY"
 
-/** SYSTEM DTD identifier */
-#define DTD_SYSTEM "SYSTEM"
-/** PUBLIC DTD identifier */
-#define DTD_PUBLIC "PUBLIC"
+/* DTD External content keyword defines */
+
+/** SYSTEM external DTD identifier */
+#define DTD_EXTERN_SYSTEM "SYSTEM"
+/** PUBLIC external DTD identifier */
+#define DTD_EXTERN_PUBLIC "PUBLIC"
+
+/* DTD Element Content type keyword defines */
 
 /** DTD PCDATA (Parsed character data) content type */
-#define DTD_PCDATA "#PCDATA"
+#define DTD_CONTENT_PCDATA "#PCDATA"
 /** DTD EMPTY content type */
-#define DTD_EMPTY "EMPTY"
+#define DTD_CONTENT_EMPTY "EMPTY"
 /** DTD ANY content type */
-#define DTD_ANY "ANY"
+#define DTD_CONTENT_ANY "ANY"
+
+/* DTD Attribute keyword defines */
+
+/** DTD CDATA (character data, string) attribute type */
+#define DTD_ATTR_CDATA "CDATA"
+/** DTD ID (unique identifier) attribute type */
+#define DTD_ATTR_ID "ID"
+/** DTD IDREF (reference to an id of another element) attribute type */
+#define DTD_ATTR_IDREF "IDREF"
+/** DTD IDREFS (list of ID references) attribute type */
+#define DTD_ATTR_IDREFS "IDREFS"
+/** DTD ENTITY attribute type */
+#define DTD_ATTR_ENTITY "ENTITY"
+/** DTD ENTITIES (list of entities) attribute type */
+#define DTD_ATTR_ENTITIES "ENTITIES"
+/** DTD NMTOKEN (valid XML name) attribute type */
+#define DTD_ATTR_NMTOKEN "NMTOKEN"
+/** DTD NMTOKENS (a list of valid XML names) attribute type */
+#define DTD_ATTR_NMTOKENS "NMTOKENS"
+
+/** DTD REQUIRED attribute value identifier */
+#define DTD_ATTR_REQUIRED "#REQUIRED"
+/** DTD IMPLIED (optional) attribute value identifier */
+#define DTD_ATTR_IMPLIED "#IMPLIED"
+/** DTD FIXED (must be a set value) attribute value identifier - should be followed by the content the attribute value should be fixed to */
+#define DTD_ATTR_FIXED "#FIXED"
+
 
 
 /** 

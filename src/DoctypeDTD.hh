@@ -57,12 +57,12 @@ class DoctypeDTD : public DTD {
         /** Gets the current value of the 'root_element' attribute */
         std::string getRootElement(void) const;
 
-        /** Sets the 'ext_type' attribute to the specified value (recommended to use DTD_* constants) */
+        /** Sets the 'ext_type' attribute to the specified value (recommended to use DTD_EXTERN_* constants) */
         void setExtType(std::string const & extType);
         /** Gets the current value of the 'ext_type' attribute */
         std::string getExtType(void) const;
 
-        /** Sets the 'ext_link' attribute to the specified value (recommended to use DTD_* constants) */
+        /** Sets the 'ext_link' attribute (the link to the external DTD) to the specified value */
         void setExtLink(std::string const & extLink);
         /** Gets the current value of the 'ext_link' attribute */
         std::string getExtLink(void) const;
