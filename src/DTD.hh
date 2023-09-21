@@ -88,7 +88,7 @@
 #define DTD_ATTR_REQUIRED "#REQUIRED"
 /** DTD IMPLIED (optional) attribute value identifier */
 #define DTD_ATTR_IMPLIED "#IMPLIED"
-/** DTD FIXED (must be a set value) attribute value identifier - should be followed by the content the attribute value should be fixed to */
+/** DTD FIXED (must be the set value) attribute value identifier, to be followed by a string value (enclosed in double quotes) */
 #define DTD_ATTR_FIXED "#FIXED"
 
 
