@@ -10,7 +10,7 @@
 
 #include <string>
 
-#include "Node.hh"
+#include "../Node.hh"
 
 /* DTD Type defines */
 

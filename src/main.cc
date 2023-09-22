@@ -6,11 +6,11 @@
 #include "XmlElement.hh"
 #include "TextElement.hh"
 #include "XmlProlog.hh"
-#include "DTD.hh"
-#include "DoctypeDTD.hh"
-#include "ElementDTD.hh"
-#include "AttributeDTD.hh"
-#include "EntityDTD.hh"
+#include "DTD/DTD.hh"
+#include "DTD/DoctypeDTD.hh"
+#include "DTD/ElementDTD.hh"
+#include "DTD/AttributeDTD.hh"
+#include "DTD/EntityDTD.hh"
 
 /* First version - file_util demo - write/read files before working with XML */
 
