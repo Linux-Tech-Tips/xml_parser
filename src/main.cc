@@ -10,6 +10,7 @@
 #include "DoctypeDTD.hh"
 #include "ElementDTD.hh"
 #include "AttributeDTD.hh"
+#include "EntityDTD.hh"
 
 /* First version - file_util demo - write/read files before working with XML */
 
@@ -68,6 +69,14 @@ int main() {
     doctype.pushBackChild(ElementDTD("_dtd_3", "element2", DTD_CONTENT_ANY));
     doctype.pushBackChild(AttributeDTD("_dtd_4", "element1", "at", DTD_ATTR_CDATA, DTD_ATTR_FIXED " \"tribute\""));
     doctype.pushBackChild(AttributeDTD("_dtd_5", "element1", "not", DTD_ATTR_CDATA, "thing", true));
+    doctype.pushBackChild(EntityDTD("_dtd_6", "EN", "TITY"));
+    doctype.pushBackChild(EntityDTD("_dtd_7", "EXT", DTD_EXTERN_SYSTEM " \"https://www.w3schools.com/entities.dtd\"", false));
+
+    std::string tmpName;
+    std::string tmpValue;
+    bool tmpIsString;
+    ((EntityDTD *)doctype.getChild("_dtd_7"))->getContent(tmpName, tmpValue, tmpIsString);
+    std::cout << "DEBUG: Values are " << tmpName << " " << tmpValue << " " << tmpIsString << std::endl;
 
     ElementDTD seqElement("_dtd_4", "element3");
     std::string content [5] = {"one", "two", "three", "four", "five"};
