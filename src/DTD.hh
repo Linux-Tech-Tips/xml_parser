@@ -12,32 +12,6 @@
 
 #include "Node.hh"
 
-/* TODO What to do here basically: 
-
-    - DTD Information:
-        - DOCTYPE - document
-            - root element
-            - list of other DTDs
-            - external DTD file reference
-        - ELEMENT - element
-            - category - EMPTY/ANY/(#CDATA)/(#PCDATA)
-            - or child elements - (child1, zero_or_one_of_me?, (either_this|or_that|or_optionally_that))
-        - ATTLIST - attributes
-            - element name
-            - attribute name
-            - attribute type - TODO Defines for default XML DTD Keywords
-            - attribute value
-        - ENTITY - entity referencable in the content
-    
-    - Keywords:
-        - SYSTEM - external reference
-        - CDATA - character data
-        - PCDATA - parsed character data - special characters have their meaning
-        - EMPTY - empty element
-        - ANY - any content in an element
-
-*/
-
 /* DTD Type defines */
 
 /** !DOCTYPE DTD */

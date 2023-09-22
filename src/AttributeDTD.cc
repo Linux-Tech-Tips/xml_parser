@@ -20,7 +20,7 @@ void AttributeDTD::setElementName(std::string const & elementName) {
     this->setAttribute("element_name", elementName);
 }
 
-std::string AttributeDTD::getElementName(void) {
+std::string AttributeDTD::getElementName(void) const {
     return this->getAttribute("element_name");
 }
 
@@ -28,7 +28,7 @@ void AttributeDTD::setAttrName(std::string const & attrName) {
     this->setAttribute("attr_name", attrName);
 }
 
-std::string AttributeDTD::getAttrName(void) {
+std::string AttributeDTD::getAttrName(void) const {
     return this->getAttribute("attr_name");
 }
 
@@ -36,7 +36,7 @@ void AttributeDTD::setAttrType(std::string const & attrType) {
     this->setAttribute("attr_type", attrType);
 }
 
-std::string AttributeDTD::getAttrType(void) {
+std::string AttributeDTD::getAttrType(void) const {
     return this->getAttribute("attr_type");
 }
 
@@ -45,7 +45,7 @@ void AttributeDTD::setAttrValue(std::string const & attrValue, bool isString) {
     this->stringValue = isString;
 }
 
-std::string AttributeDTD::getAttrValue(void) {
+std::string AttributeDTD::getAttrValue(void) const {
     return this->getAttribute("attr_value");
 }
 
@@ -53,7 +53,7 @@ void AttributeDTD::setStringValue(bool isString) {
     this->stringValue = isString;
 }
 
-bool AttributeDTD::getStringValue(void) {
+bool AttributeDTD::getStringValue(void) const {
     return this->stringValue;
 }
 
@@ -67,7 +67,7 @@ void AttributeDTD::setAttr(std::string const & attrName, std::string const & att
     this->stringValue = isString;
 }
 
-void AttributeDTD::getAttr(std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString) {
+void AttributeDTD::getAttr(std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString) const {
     attrName = this->getAttrName();
     attrType = this->getAttrType();
     attrValue = this->getAttrValue();
@@ -82,7 +82,7 @@ void AttributeDTD::setContent(std::string const & elementName, std::string const
     this->setAttr(attrName, attrType, attrValue, isString);
 }
 
-void AttributeDTD::getContent(std::string & elementName, std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString) {
+void AttributeDTD::getContent(std::string & elementName, std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString) const {
     elementName = this->getElementName();
     this->getAttr(attrName, attrType, attrValue, isString);
 }

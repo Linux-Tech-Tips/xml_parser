@@ -52,19 +52,19 @@ class AttributeDTD : public DTD {
         void setElementName(std::string const & elementName);
 
         /** Returns the current value of the 'element_name' property */
-        std::string getElementName(void);
+        std::string getElementName(void) const;
 
         /** Sets the 'attr_name' property */
         void setAttrName(std::string const & attrName);
 
         /** Returns the current value of the 'attr_name' property */
-        std::string getAttrName(void);
+        std::string getAttrName(void) const;
 
         /** Sets the 'attr_type' property */
         void setAttrType(std::string const & attrType);
 
         /** Returns the current value of the 'attr_type' property */
-        std::string getAttrType(void);
+        std::string getAttrType(void) const;
 
         /** Sets the 'attr_value' property 
          *  @param isString if true, the attribute value is treated as a string and is surrounded with double quotes in the XML
@@ -72,13 +72,13 @@ class AttributeDTD : public DTD {
         void setAttrValue(std::string const & attrValue, bool isString = false);
 
         /** Returns the current value of the 'attr_value' property */
-        std::string getAttrValue(void);
+        std::string getAttrValue(void) const;
 
         /** Sets whether the attribute value should be treated as a string (and surrounded by double quotes in the XML) */
         void setStringValue(bool isString);
 
         /** Gets whether the attribute value is treated as a string (surrounded by double quotes in the XML) */
-        bool getStringValue(void);
+        bool getStringValue(void) const;
 
 
         /* General attribute get/set */
@@ -89,7 +89,7 @@ class AttributeDTD : public DTD {
         void setAttr(std::string const & attrName, std::string const & attrType, std::string const & attrValue, bool isString = false);
 
         /** Saves the XML Attribute properties to the given parameters */
-        void getAttr(std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString);
+        void getAttr(std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString) const;
 
 
         /* General content get/set */
@@ -98,7 +98,7 @@ class AttributeDTD : public DTD {
         void setContent(std::string const & elementName, std::string const & attrName, std::string const & attrType, std::string const & attrValue, bool isString = false);
 
         /** Saves all available content fields of the DTD to the given parameters */
-        void getContent(std::string & elementName, std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString);
+        void getContent(std::string & elementName, std::string & attrName, std::string & attrType, std::string & attrValue, bool & isString) const;
 
         /** Unsets all available content fields */
         void delContent(void);
