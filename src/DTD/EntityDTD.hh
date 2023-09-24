@@ -29,15 +29,14 @@ class EntityDTD : public DTD {
         bool stringValue;
 
     public:
-        /** Constructor 
-         *  @param name the internal identifying name of the DTD (not displayed)
+        /** Constructor
          *  @param entityName the name of the defined XML Entity
          *  @param entityValue the value of the defined XML Entity
          *  @param stringValue if true, the value is treated as a string and is enclosed in quotes (set to false for fully custom value, e.g. for external entities)
          *  @param indent whether the DTD should be indented if nested
          *  @param endLine whether the DTD should end the line it's on
         */
-        EntityDTD(std::string const & name = "_default_entity_DTD", std::string const & entityName = "_default_entity", std::string const & entityValue = "_default_entity_value", bool stringValue = true, bool indent = true, bool endLine = true);
+        EntityDTD(std::string const & entityName = "_default_entity", std::string const & entityValue = "_default_entity_value", bool stringValue = true, bool indent = true, bool endLine = true);
 
         /** Sets the 'entity_name' attribute of the XML Entity */
         void setEntityName(std::string const & name);

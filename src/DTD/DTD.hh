@@ -81,17 +81,14 @@
 class DTD : public Node {
 
     protected:
-        /** The type of the DTD, to be set using the defined constants */
-        std::string type;
 
     public:
         /** Constructor 
-         *  @param name the internal identifying name of the DTD (not displayed)
-         *  @param type the type of the DTD, which is actually displayed
+         *  @param type the type of the DTD
          *  @param indent whether the DTD should be indented if nested
          *  @param endLine whether the DTD should end the line it's on
         */
-        DTD(std::string const & name = "_default_base_DTD", std::string const & type = DTD_DOCTYPE, std::string const & content = "", bool indent = true, bool endLine = true);
+        DTD(std::string const & type = DTD_DOCTYPE, std::string const & content = "", bool indent = true, bool endLine = true);
 
         /** Sets the 'content' attribute to the desired content */
         virtual void setContent(std::string const & content);

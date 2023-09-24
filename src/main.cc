@@ -61,24 +61,24 @@ int main() {
     XmlProlog prlg("xml_prolog", 1.0f, "UTF-8", STANDALONE_YES);
 
     /* XML DTD Document type declaration */
-    DoctypeDTD doctype("doctype", "html");
+    DoctypeDTD doctype("html");
     doctype.setExtLink("ext.dtd");
     doctype.setExtType(DTD_EXTERN_PUBLIC);
-    doctype.pushBackChild(DTD("_dtd_1", "CUSTOM_DTD", "test"));
-    doctype.pushBackChild(ElementDTD("_dtd_2", "element1", DTD_CONTENT_EMPTY));
-    doctype.pushBackChild(ElementDTD("_dtd_3", "element2", DTD_CONTENT_ANY));
-    doctype.pushBackChild(AttributeDTD("_dtd_4", "element1", "at", DTD_ATTR_CDATA, DTD_ATTR_FIXED " \"tribute\""));
-    doctype.pushBackChild(AttributeDTD("_dtd_5", "element1", "not", DTD_ATTR_CDATA, "thing", true));
-    doctype.pushBackChild(EntityDTD("_dtd_6", "EN", "TITY"));
-    doctype.pushBackChild(EntityDTD("_dtd_7", "EXT", DTD_EXTERN_SYSTEM " \"https://www.w3schools.com/entities.dtd\"", false));
+    doctype.pushBackChild(DTD("CUSTOM_DTD", "test"));
+    doctype.pushBackChild(ElementDTD("element1", DTD_CONTENT_EMPTY));
+    doctype.pushBackChild(ElementDTD("element2", DTD_CONTENT_ANY));
+    doctype.pushBackChild(AttributeDTD("element1", "at", DTD_ATTR_CDATA, DTD_ATTR_FIXED " \"tribute\""));
+    doctype.pushBackChild(AttributeDTD("element1", "not", DTD_ATTR_CDATA, "thing", true));
+    doctype.pushBackChild(EntityDTD("EN", "TITY"));
+    doctype.pushBackChild(EntityDTD("EXT", DTD_EXTERN_SYSTEM " \"https://www.w3schools.com/entities.dtd\"", false));
 
     std::string tmpName;
     std::string tmpValue;
     bool tmpIsString;
-    ((EntityDTD *)doctype.getChild("_dtd_7"))->getContent(tmpName, tmpValue, tmpIsString);
+    ((EntityDTD *)doctype.getChild(6))->getContent(tmpName, tmpValue, tmpIsString);
     std::cout << "DEBUG: Values are " << tmpName << " " << tmpValue << " " << tmpIsString << std::endl;
 
-    ElementDTD seqElement("_dtd_4", "element3");
+    ElementDTD seqElement("element3");
     std::string content [5] = {"one", "two", "three", "four", "five"};
     seqElement.setElementContent(content, 5);
     seqElement.addElementContent("six");
@@ -86,11 +86,11 @@ int main() {
 
     doctype.pushBackChild(seqElement);
 
-    if(doctype.findChild("_dtd_1"))
+    if(doctype.findChild(DTD_ELEMENT))
         std::cout << "FOUND" << std::endl;
 
     int t;
-    if(doctype.findChild("_dtd_2", &t))
+    if(doctype.findChild("CUSTOM_DTD", &t))
         std::cout << "FOUND AT " << t << std::endl;
     
     std::string gotContent;

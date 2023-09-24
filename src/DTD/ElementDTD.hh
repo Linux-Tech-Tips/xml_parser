@@ -12,11 +12,6 @@
 
 #include "DTD.hh"
 
-/* TODO Print behavior:
-    - if content DTD_EMPTY or DTD_ANY print without parentheses
-    - otherwise print with parentheses
-*/
-
 /** 
  * @class ElementDTD
  * @author Linux-Tech-Tips
@@ -31,13 +26,12 @@ class ElementDTD : public DTD {
 
     public:
         /** Constructor
-         *  @param name the internal identifying name of the element, not displayed
          *  @param elementName the name of the element which the DTD describes
          *  @param content the content of the element description (rendered in parentheses)
          *  @param indent whether the DTD should be indented if nested
          *  @param endLine whether the DTD should end the line it's on
         */
-        ElementDTD(std::string const & name = "_default_element_dtd", std::string const & elementName = "default_element", std::string const & elementContent = "", bool indent = true, bool endLine = true);
+        ElementDTD(std::string const & elementName = "default_element", std::string const & elementContent = "", bool indent = true, bool endLine = true);
 
 
         /* Specific content manipulation member functions */

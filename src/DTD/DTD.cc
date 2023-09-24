@@ -2,9 +2,8 @@
 
 /* Constructor */
 
-DTD::DTD(std::string const & name, std::string const & type, std::string const & content, bool indent, bool endLine) {
-    this->setName(name, false);
-    this->type = type;
+DTD::DTD(std::string const & type, std::string const & content, bool indent, bool endLine) {
+    this->setName(type, false);
     if(content.length() > 0)
         this->setAttribute("content", content);
     this->indent = indent;
@@ -34,7 +33,7 @@ std::string DTD::print(int indentLevel) {
             result += "\t";
         }
     }
-    result += "<!" + this->type + " ";
+    result += "<!" + this->name + " ";
 
     /* Internally, an empty string is returned if the attribute doesn't exist */
     result += this->getAttribute("content");

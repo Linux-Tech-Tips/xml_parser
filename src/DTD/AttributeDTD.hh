@@ -31,8 +31,7 @@ class AttributeDTD : public DTD {
         bool stringValue;
 
     public:
-        /** Constructor 
-         *  @param name the internal identifying name of the DTD (not displayed)
+        /** Constructor
          *  @param element the name of the element of which an attribute is described
          *  @param attribute the name of the described attribute
          *  @param type the type of the described attribute
@@ -41,8 +40,8 @@ class AttributeDTD : public DTD {
          *  @param endLine whether the DTD should end the line it's on
         */
         AttributeDTD(
-            std::string const & name = "_default_attribute_DTD", std::string const & element = "default_element", 
-            std::string const & attribute = "default_attribute", std::string const & type = DTD_ATTR_CDATA, std::string const & value = DTD_ATTR_IMPLIED,
+            std::string const & element = "default_element", std::string const & attribute = "default_attribute", 
+            std::string const & type = DTD_ATTR_CDATA, std::string const & value = DTD_ATTR_IMPLIED,
             bool stringValue = false, bool indent = true, bool endLine = true);
         
 

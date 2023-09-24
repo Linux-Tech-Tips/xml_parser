@@ -36,13 +36,12 @@ class DoctypeDTD : public DTD {
 
     public:
         /** Constructor
-         *  @param name the internal identifying name of the element, not displayed
          *  @param rootElement the root element of the XML document, to be specified in the Doctype DTD
          *  @param singleLine whether the nested child DTD elements should be on the same line as the DTD or the following line
          *  @param indent whether the DTD should be indented if nested
          *  @param endLine whether the DTD should end the line it's on
         */
-        DoctypeDTD(std::string const & name = "_default_doctype_dtd", std::string const & rootElement = "default_element", bool singleLine = false, bool indent = false, bool endLine = true);
+        DoctypeDTD(std::string const & rootElement = "default_element", bool singleLine = false, bool indent = false, bool endLine = true);
 
         /** Copy constructor */
         DoctypeDTD(DoctypeDTD const & original);
@@ -97,7 +96,7 @@ class DoctypeDTD : public DTD {
 
         /** Returns a pointer to the internally stored nested DTD element at the given position (or null pointer if out of bounds) */
         Node * getChild(int pos);
-        /** Returns a pointer to the internally stored nested DTD child element with the given name (or null pointer if no such child exists) */
+        /** Returns a pointer to the first internally stored nested DTD child element with the given name (or null pointer if no such child exists) */
         Node * getChild(std::string const & name);
 
         /** Returns the current amount of existing child DTD elements */

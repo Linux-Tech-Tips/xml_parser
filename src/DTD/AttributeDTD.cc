@@ -1,11 +1,10 @@
 #include "AttributeDTD.hh"
 
 AttributeDTD::AttributeDTD(
-    std::string const & name, std::string const & element, std::string const & attribute, std::string const & type, std::string const & value, 
+    std::string const & element, std::string const & attribute, std::string const & type, std::string const & value, 
     bool stringValue, bool indent, bool endLine) {
 
-        this->setName(name, false);
-        this->type = DTD_ATTRIBUTES;
+        this->setName(DTD_ATTRIBUTES, false);
         this->setElementName(element);
         this->setAttr(attribute, type, value);
         this->stringValue = stringValue;
@@ -107,7 +106,7 @@ std::string AttributeDTD::print(int indentLevel) {
         }
     }
 
-    result += "<!" + this->type + " " + this->getElementName() + " " + this->getAttrName() + " " + this->getAttrType() + " ";
+    result += "<!" + this->name + " " + this->getElementName() + " " + this->getAttrName() + " " + this->getAttrType() + " ";
 
     if(this->stringValue)
         result += "\"" + this->getAttrValue() + "\"";

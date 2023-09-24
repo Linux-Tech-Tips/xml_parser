@@ -2,9 +2,8 @@
 
 /* Constructor */
 
-ElementDTD::ElementDTD(std::string const & name, std::string const & elementName, std::string const & content, bool endLine, bool indent) {
-    this->setName(name, false);
-    this->type = DTD_ELEMENT;
+ElementDTD::ElementDTD(std::string const & elementName, std::string const & content, bool endLine, bool indent) {
+    this->setName(DTD_ELEMENT, false);
     this->setAttribute("element_name", elementName);
     this->setAttribute("element_content", content);
     this->endLine = endLine;
@@ -90,7 +89,7 @@ std::string ElementDTD::print(int indentLevel) {
             result += "\t";
         }
     }
-    result += "<!" + this->type + " ";
+    result += "<!" + this->name + " ";
 
     result += this->getAttribute("element_name") + " ";
 

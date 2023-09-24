@@ -1,8 +1,7 @@
 #include "EntityDTD.hh"
 
-EntityDTD::EntityDTD(std::string const & name, std::string const & entityName, std::string const & entityValue, bool stringValue, bool indent, bool endLine) {
-    this->setName(name, false);
-    this->type = DTD_ENTITY;
+EntityDTD::EntityDTD(std::string const & entityName, std::string const & entityValue, bool stringValue, bool indent, bool endLine) {
+    this->setName(DTD_ENTITY, false);
     this->setEntityName(entityName);
     this->setEntityValue(entityValue);
     this->stringValue = stringValue;
@@ -64,7 +63,7 @@ std::string EntityDTD::print(int indentLevel) {
         }
     }
 
-    result += "<!" + this->type + " " + this->getEntityName() + " ";
+    result += "<!" + this->name + " " + this->getEntityName() + " ";
     
     if(this->stringValue) 
         result += "\"" + this->getEntityValue() + "\"";

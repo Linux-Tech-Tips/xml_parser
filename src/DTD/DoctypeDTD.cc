@@ -1,9 +1,8 @@
 #include "DoctypeDTD.hh"
 
 /* Constructor/Destructor */
-DoctypeDTD::DoctypeDTD(std::string const & name, std::string const & rootElement, bool singleLine, bool endLine, bool indent) {
-    this->setName(name, false);
-    this->type = DTD_DOCTYPE;
+DoctypeDTD::DoctypeDTD(std::string const & rootElement, bool singleLine, bool indent, bool endLine) {
+    this->setName(DTD_DOCTYPE, false);
     this->setAttribute("root_element", rootElement);
     this->singleLine = singleLine;
     this->indent = indent;
@@ -12,7 +11,6 @@ DoctypeDTD::DoctypeDTD(std::string const & name, std::string const & rootElement
 
 DoctypeDTD::DoctypeDTD(DoctypeDTD const & original) {
     this->name = original.name;
-    this->type = original.type;
     this->attributes = original.attributes;
     this->indent = indent;
     this->endLine = endLine;
@@ -158,7 +156,7 @@ std::string DoctypeDTD::print(int indentLevel) {
             result += "\t";
     }
 
-    result += "<!" + this->type + " " + this->getRootElement();
+    result += "<!" + this->name + " " + this->getRootElement();
 
     /* Adding link to external DTD if specified */
     if(this->attributes.find("ext_link") != this->attributes.end()) {
