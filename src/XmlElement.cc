@@ -71,9 +71,9 @@ Node * XmlElement::getChild(int index) {
         return nullptr;
 }
 
-Node * XmlElement::getChild(char const * childName) {
+Node * XmlElement::getChild(char const * childName, size_t offset) {
     int index;
-    if(this->findChild(childName, &index))
+    if(this->findChild(childName, &index, offset))
         return this->children.at((size_t)index);
     else
         return nullptr;
@@ -84,18 +84,34 @@ size_t XmlElement::getChildAmount(void) const {
     return this->children.size();
 }
 
+size_t XmlElement::getChildAmount(char const * childName) {
+    int amount = 0;
+    /* Counting all children with the specified name iteratively */
+    for(auto it : this->children) {
+        if(it->getName().compare(childName) == 0) {
+            amount++;
+        }
+    }
+    return amount;
+}
+
 bool XmlElement::childrenEmpty(void) const {
     return this->children.empty();
 }
 
-bool XmlElement::findChild(char const * nameToFind, int * index) {
+bool XmlElement::findChild(char const * nameToFind, int * index, size_t offset) {
     /* Checks all child elements */
     for(size_t i = 0; i < this->getChildAmount(); i++) {
         if(this->children[i]->getName().compare(nameToFind) == 0) {
-            /* Returns and saves the index of the first instance found*/
-            if(index)
-                *index = i;
-            return true;
+            if(offset > 0) {
+                /* Decrement the offset if child found, but not correct n-th yet */
+                offset--;
+            } else {
+                /* Returns and saves the index of the found instance, if correct n-th offset */
+                if(index)
+                    *index = i;
+                return true;
+            }
         }
     }
     /* Returns false and saves -1 if for loop finishes without finding any */

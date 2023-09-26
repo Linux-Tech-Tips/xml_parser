@@ -59,6 +59,14 @@ int main() {
         zero->pushBackChild(TextElement("p", "this is the zero-th element, nice"));
     }
 
+    int nestedP = ((XmlElement *)rootEl.getChild("NestedElement2"))->getChildAmount("p");
+    if(nestedP > 0) {
+        std::cout << "Number of p elements in NestedElement2: " << nestedP << std::endl;
+        XmlElement * n2 = ((XmlElement *)rootEl.getChild("NestedElement2"));
+        XmlElement * np = ((XmlElement *)(n2->getChild("p", 1)));
+        std::cout << "Last p element content is: " << np->print() << std::endl;
+    }
+
     /* XML Document prolog */
     XmlProlog prlg("xml_prolog", 1.0f, "UTF-8", STANDALONE_YES);
 
