@@ -14,12 +14,11 @@
 #include "Node.hh"
 
 /** 
- * @class Node
+ * @class Comment
  * @author Linux-Tech-Tips
- * @brief Base XML Node class
+ * @brief XML Comment node class
  * 
- * The base XML Node class, containing a name, attributes, general XML Node settings and a virtual print function. 
- * Is expected to be inherited from by extending classes, defining specific nodes with special behavior. 
+ * The XML Comment class, describing an XML Comment node, containing text content
 */
 class Comment : public Node {
 

@@ -13,9 +13,9 @@
 #include "DTD.hh"
 
 /** 
- * @class DTD
+ * @class AttributeDTD
  * @author Linux-Tech-Tips
- * @brief XML Document Type Definition element class
+ * @brief XML Attribute DTD element class
  * 
  * The Attribute DTD, describing the properties of a specific attribute of a specific element.
  * The recognized internal attributes for this class are:
