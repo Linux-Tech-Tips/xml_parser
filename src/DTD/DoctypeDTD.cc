@@ -114,9 +114,9 @@ Node * DoctypeDTD::getChild(int pos) {
         return nullptr;
 }
 
-Node * DoctypeDTD::getChild(std::string const & name) {
+Node * DoctypeDTD::getChild(std::string const & name, size_t offset) {
     int index;
-    if(this->findChild(name.c_str(), &index))
+    if(this->findChild(name.c_str(), &index, offset))
         return this->children.at((size_t)index);
     else
         return nullptr;
@@ -126,17 +126,33 @@ size_t DoctypeDTD::getChildAmount(void) const {
     return this->children.size();
 }
 
+size_t DoctypeDTD::getChildAmount(std::string const & name) const {
+    int amount = 0;
+    /* Counting all children with specified name */
+    for(auto it : this->children) {
+        if(it->getName().compare(name) == 0)
+            amount++;
+    }
+    return amount;
+}
+
 bool DoctypeDTD::childrenEmpty(void) const {
     return this->children.empty();
 }
 
-bool DoctypeDTD::findChild(char const * nameToFind, int * index) {
+bool DoctypeDTD::findChild(char const * nameToFind, int * index, size_t offset) {
     /* Check all child elements */
     for(size_t i = 0; i < this->getChildAmount(); i++) {
         if(this->children.at(i)->getName().compare(nameToFind) == 0) {
-            if(index)
-                *index = i;
-            return true;
+            if(offset > 0) {
+                /* Decrementing offset if above 0 */
+                offset--;
+            } else {
+                /* Saving the index of the n-th found element */
+                if(index)
+                    *index = i;
+                return true;
+            }
         }
     }
     /* Return false if none found */

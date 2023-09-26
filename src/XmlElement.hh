@@ -68,14 +68,14 @@ class XmlElement: public Node {
         /** Get a pointer to the nested child element from the given position (or null pointer if out of bounds) */
         Node * getChild(int index);
         /** Get a pointer to the n-th nested child element with the given name (or null pointer if not found or offset out of range) 
-         *  @param offset which found named child to get (leave default or 0 for the first child)
+         *  @param offset which found named child to get (leave default or 0 for the first child; the amount of found named children specified by offset is skipped)
         */
         Node * getChild(char const * childName, size_t offset = 0);
         
         /** Get how many nested child elements are currently in this element */
         size_t getChildAmount(void) const;
         /** Get how many nested child elements with the specified name are currently in this element */
-        size_t getChildAmount(char const * childName);
+        size_t getChildAmount(char const * childName) const;
         /** Get whether no children present (the list is empty) */
         bool childrenEmpty(void) const;
 

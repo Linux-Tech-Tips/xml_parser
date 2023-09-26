@@ -84,7 +84,7 @@ size_t XmlElement::getChildAmount(void) const {
     return this->children.size();
 }
 
-size_t XmlElement::getChildAmount(char const * childName) {
+size_t XmlElement::getChildAmount(char const * childName) const {
     int amount = 0;
     /* Counting all children with the specified name iteratively */
     for(auto it : this->children) {

@@ -96,18 +96,23 @@ class DoctypeDTD : public DTD {
 
         /** Returns a pointer to the internally stored nested DTD element at the given position (or null pointer if out of bounds) */
         Node * getChild(int pos);
-        /** Returns a pointer to the first internally stored nested DTD child element with the given name (or null pointer if no such child exists) */
-        Node * getChild(std::string const & name);
+        /** Returns a pointer to the n-th internally stored nested DTD child element with the given name (or null pointer if no such child exists) 
+         *  @param offset which found element to get (leave default or 0 for the first element; the amount of found named children specified by the offset is skipped)
+        */
+        Node * getChild(std::string const & name, size_t offset = 0);
 
         /** Returns the current amount of existing child DTD elements */
         size_t getChildAmount(void) const;
+        /** Returns the current amount of existing child DTD elements with the given name */
+        size_t getChildAmount(std::string const & name) const;
         /** Get whether the list of nested child DTD elements is empty */
         bool childrenEmpty(void) const;
 
         /** Returns whether a child DTD element with the given name exists, and if so, saves the index of the first match 
          *  @param index the saved index; if index < 0, the child was not found (pass nullptr to not save index)
+         *  @param offset which found element index to save (leave default or 0 for the first element; the amount of found named children specified by the offset is skipped)
         */
-        bool findChild(char const * nameToFind, int * index = nullptr);
+        bool findChild(char const * nameToFind, int * index = nullptr, size_t offset = 0);
 
 
         /* Other */

@@ -102,6 +102,16 @@ int main() {
     int t;
     if(doctype.findChild("CUSTOM_DTD", &t))
         std::cout << "FOUND AT " << t << std::endl;
+
+    std::cout << "Total: " << doctype.getChildAmount() << std::endl;
+
+    if(doctype.findChild(DTD_ENTITY, &t, 0))
+        std::cout << "FOUND AT " << t << std::endl;
+
+    if(doctype.findChild(DTD_ENTITY, &t, 1)) {
+        std::cout << "FOUND AT " << t << std::endl;
+        std::cout << "Entity name: " << ((EntityDTD *)doctype.getChild(DTD_ENTITY, 1))->getEntityName() << std::endl;
+    }
     
     std::string gotContent;
     ((DTD *)doctype.getChild(0))->getContent(gotContent);
