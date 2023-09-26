@@ -3,6 +3,7 @@
 /* Constructor/Destructor */
 DoctypeDTD::DoctypeDTD(std::string const & rootElement, bool singleLine, bool indent, bool endLine) {
     this->setName(DTD_DOCTYPE, false);
+    this->nodeType = NodeTypeName::DoctypeDTD;
     this->setAttribute("root_element", rootElement);
     this->singleLine = singleLine;
     this->indent = indent;

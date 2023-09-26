@@ -2,6 +2,7 @@
 
 ProcessingInstruction::ProcessingInstruction(std::string const & name, bool endLine, bool indent) {
     this->setName(name, false);
+    this->nodeType = NodeTypeName::ProcessingInstruction;
     this->endLine = endLine;
     this->indent = indent;
 }

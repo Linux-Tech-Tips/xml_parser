@@ -6,6 +6,7 @@
 /* Constructor */
 XmlElement::XmlElement(std::string const & name, bool singleLine, bool endLine, bool indent, bool checkName) {
     this->setName(name, checkName);
+    this->nodeType = NodeTypeName::XmlElement;
     this->singleLine = singleLine;
     this->indent = indent;
     this->endLine = endLine;
@@ -15,6 +16,7 @@ XmlElement::XmlElement(std::string const & name, bool singleLine, bool endLine, 
 XmlElement::XmlElement(XmlElement const & original) {
     /* Copying all statically allocated members */
     this->name = original.name;
+    this->nodeType = original.nodeType;
     this->singleLine = original.singleLine;
     this->indent = original.indent;
     this->endLine = original.endLine;

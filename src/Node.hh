@@ -13,6 +13,34 @@
 #include <stdexcept>
 #include <regex>
 
+/** An enumeration type defining named XML Node types, for convenience 
+ * To test whether an instance of Node * type is a specific inheriting class, use this enumeration
+*/
+enum class NodeTypeName {
+    /** Describing a class of type Node */
+    Node,
+    /** Describing a class of type Comment */
+    Comment,
+    /** Describing a class of type ProcessingInstruction */
+    ProcessingInstruction,
+    /** Describing a class of type TextElement */
+    TextElement,
+    /** Describing a class of type XmlElement */
+    XmlElement,
+    /** Describing a class of type XmlProlog */
+    XmlProlog,
+    /** Describing a class of type AttributeDTD */
+    AttributeDTD,
+    /** Describing a class of type DoctypeDTD */
+    DoctypeDTD,
+    /** Describing a class of type DTD */
+    DTD,
+    /** Describing a class of type ElementDTD */
+    ElementDTD,
+    /** Describing a class of type EntityDTD */
+    EntityDTD
+};
+
 /** 
  * @class Node
  * @author Linux-Tech-Tips
@@ -26,6 +54,9 @@ class Node {
     protected:
         /** The name of the node, serves as an identifier and is printed in XML */
         std::string name;
+        /** The type of the XML node */
+        NodeTypeName nodeType;
+
         /** Whether the element ends the line it's on */
         bool endLine;
         /** Whether the element should take the indent level into consideration */
@@ -59,6 +90,12 @@ class Node {
         virtual void setName(std::string const & name, bool checkName = true);
         /** Returns the current name of the node */
         virtual std::string getName(void);
+
+
+        /* Type */
+
+        /** Returns the specific type of the current Node, in the format of a NodeTypeName enum element */
+        NodeTypeName getNodeType(void);
 
 
         /* Attribute */

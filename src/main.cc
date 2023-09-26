@@ -63,8 +63,11 @@ int main() {
     if(nestedP > 0) {
         std::cout << "Number of p elements in NestedElement2: " << nestedP << std::endl;
         XmlElement * n2 = ((XmlElement *)rootEl.getChild("NestedElement2"));
-        XmlElement * np = ((XmlElement *)(n2->getChild("p", 1)));
-        std::cout << "Last p element content is: " << np->print() << std::endl;
+        Node * np = n2->getChild("p", 1);
+        if(np->getNodeType() == NodeTypeName::XmlElement)
+            std::cout << "Last p element content is: " << ((XmlElement *)np)->print() << std::endl;
+        else if(np->getNodeType() == NodeTypeName::TextElement)
+            std::cout << "Last p element content is: " << ((TextElement *)np)->getContent() << std::endl;
     }
 
     /* XML Document prolog */

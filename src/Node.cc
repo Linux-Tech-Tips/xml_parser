@@ -6,10 +6,11 @@ bool Node::checkName(std::string name, bool xmlReserved) {
     return std::regex_match(name, std::regex("(_|[a-zA-Z])[\\w\\-\\.]*")) && (!xmlReserved || name != "xml");
 }
 
-/* Constructors */
+/* Constructor */
 
 Node::Node(std::string const & name, bool endLine, bool indent) {
     this->setName(name);
+    this->nodeType = NodeTypeName::Node;
     this->endLine = endLine;
     this->indent = indent;
 }
@@ -34,8 +35,15 @@ std::string Node::getName(void) {
     return this->name;
 }
 
+/* Type */
+
+NodeTypeName Node::getNodeType(void) {
+    return this->nodeType;
+}
+
 
 /* Attribute */
+
 void Node::setAttribute(char const * name, std::string const & value) {
     this->attributes[name] = value;
 }

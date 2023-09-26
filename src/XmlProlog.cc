@@ -6,6 +6,7 @@ XmlProlog::XmlProlog(
     bool endLine, bool indent, bool printUserAttributes) {
 
         this->setName(name, false);
+        this->nodeType = NodeTypeName::XmlProlog;
         this->xmlVersion = xmlVersion;
         this->encoding = encoding;
         this->standalone = standalone;

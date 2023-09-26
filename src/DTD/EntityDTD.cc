@@ -2,6 +2,7 @@
 
 EntityDTD::EntityDTD(std::string const & entityName, std::string const & entityValue, bool stringValue, bool indent, bool endLine) {
     this->setName(DTD_ENTITY, false);
+    this->nodeType = NodeTypeName::EntityDTD;
     this->setEntityName(entityName);
     this->setEntityValue(entityValue);
     this->stringValue = stringValue;

@@ -4,6 +4,7 @@
 
 DTD::DTD(std::string const & type, std::string const & content, bool indent, bool endLine) {
     this->setName(type, false);
+    this->nodeType = NodeTypeName::DTD;
     if(content.length() > 0)
         this->setAttribute("content", content);
     this->indent = indent;

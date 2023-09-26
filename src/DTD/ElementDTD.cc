@@ -4,6 +4,7 @@
 
 ElementDTD::ElementDTD(std::string const & elementName, std::string const & content, bool endLine, bool indent) {
     this->setName(DTD_ELEMENT, false);
+    this->nodeType = NodeTypeName::ElementDTD;
     this->setAttribute("element_name", elementName);
     this->setAttribute("element_content", content);
     this->endLine = endLine;

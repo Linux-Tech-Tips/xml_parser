@@ -35,6 +35,7 @@ TextElement::TextElement(
 
 TextElement::TextElement(std::string const & name, std::string const & content, bool showTag, bool indent, bool endLine, bool escapeSpecial) {
     this->setName(name);
+    this->nodeType = NodeTypeName::TextElement;
     this->textContent = content;
     this->showTag = showTag;
     this->indent= indent;

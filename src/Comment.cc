@@ -2,6 +2,7 @@
 
 Comment::Comment(std::string const & name, std::string const & content, bool showName, bool endLine, bool indent) {
     this->setName(name, false);
+    this->nodeType = NodeTypeName::Comment;
     this->content = content;
     this->showName = showName;
     this->endLine = endLine;

@@ -5,6 +5,7 @@ AttributeDTD::AttributeDTD(
     bool stringValue, bool indent, bool endLine) {
 
         this->setName(DTD_ATTRIBUTES, false);
+        this->nodeType = NodeTypeName::AttributeDTD;
         this->setElementName(element);
         this->setAttr(attribute, type, value);
         this->stringValue = stringValue;
