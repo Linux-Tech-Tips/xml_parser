@@ -6,6 +6,7 @@
 #include "XmlElement.hh"
 #include "TextElement.hh"
 #include "XmlProlog.hh"
+#include "Comment.hh"
 #include "DTD/DTD.hh"
 #include "DTD/DoctypeDTD.hh"
 #include "DTD/ElementDTD.hh"
@@ -42,6 +43,7 @@ int main() {
     dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(XmlElement("NestedElement3"));
 
     /* Adding paragraphs */
+    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(Comment("NOTE:", "The following is a paragrahp", true));
     dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(TextElement("p", "This is a text paragraph"));
 
     XmlElement paragraph("p", true);
