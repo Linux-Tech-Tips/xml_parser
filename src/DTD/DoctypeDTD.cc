@@ -115,9 +115,9 @@ Node * DoctypeDTD::getChild(int pos) {
         return nullptr;
 }
 
-Node * DoctypeDTD::getChild(std::string const & name, size_t offset) {
+Node * DoctypeDTD::getChild(char const * name, size_t offset) {
     int index;
-    if(this->findChild(name.c_str(), &index, offset))
+    if(this->findChild(name, &index, offset))
         return this->children.at((size_t)index);
     else
         return nullptr;
@@ -127,7 +127,7 @@ size_t DoctypeDTD::getChildAmount(void) const {
     return this->children.size();
 }
 
-size_t DoctypeDTD::getChildAmount(std::string const & name) const {
+size_t DoctypeDTD::getChildAmount(char const * name) const {
     int amount = 0;
     /* Counting all children with specified name */
     for(auto it : this->children) {
