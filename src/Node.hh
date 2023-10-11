@@ -62,7 +62,7 @@ class Node {
         /** Whether the element should take the indent level into consideration */
         bool indent;
         /** The attributes of the node in key-value pairs, both keys and values printed in XML */
-        std::map<char const *, std::string> attributes;
+        std::map<std::string, std::string> attributes;
 
         /** Internal function to check whether a given name is XML-compliant */
         bool checkName(std::string name, bool xmlReserved = true);
@@ -103,11 +103,11 @@ class Node {
         /** Sets the attribute of the given key to the given value. 
          * If the attribute doesn't exist, it is created with the value.
          */
-        virtual void setAttribute(char const * name, std::string const & value);
+        virtual void setAttribute(std::string const & name, std::string const & value);
         /** Returns the current value of the attribute with the given name */
-        virtual std::string getAttribute(char const * name) const;
+        virtual std::string getAttribute(std::string const & name) const;
         /** Deletes the attribute with the specified name */
-        virtual void delAttribute(char const * name);
+        virtual void delAttribute(std::string const & name);
         /** Returns the current amount of existing attributes */
         virtual size_t getAttributeNumber(void) const;
         /** Returns whether the attributes map is empty */

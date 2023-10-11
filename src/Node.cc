@@ -44,18 +44,18 @@ NodeTypeName Node::getNodeType(void) {
 
 /* Attribute */
 
-void Node::setAttribute(char const * name, std::string const & value) {
+void Node::setAttribute(std::string const & name, std::string const & value) {
     this->attributes[name] = value;
 }
 
-std::string Node::getAttribute(char const * name) const {
+std::string Node::getAttribute(std::string const & name) const {
     if(this->attributes.find(name) != this->attributes.end())
         return this->attributes.at(name);
     else
         return "";
 }
 
-void Node::delAttribute(char const * name) {
+void Node::delAttribute(std::string const & name) {
     if(this->attributes.find(name) != this->attributes.end())
         this->attributes.erase(name);
 }
@@ -101,7 +101,7 @@ std::string Node::print(int indentLevel) {
     /* Attributes if any */
     for(auto it : this->attributes) {
         result += " ";
-        result += *it.first;
+        result += it.first;
         result += "=\"" + it.second + "\"";
     }
 
