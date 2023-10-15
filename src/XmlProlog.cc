@@ -2,14 +2,14 @@
 
 /* Constructor */
 XmlProlog::XmlProlog(
-    std::string const & name, float xmlVersion, std::string const & encoding, const char * standalone, 
+    std::string const & name, float xmlVersion, std::string const & encoding, std::string const & standalone, 
     bool endLine, bool indent, bool printUserAttributes) {
 
         this->setName(name, false);
         this->nodeType = NodeTypeName::XmlProlog;
-        this->xmlVersion = xmlVersion;
-        this->encoding = encoding;
-        this->standalone = standalone;
+        this->setAttribute("xml_version", std::to_string(xmlVersion).substr(0, 3));
+        this->setAttribute("encoding", encoding);
+        this->setAttribute("standalone", standalone);
         this->endLine = endLine;
         this->indent = indent;
         this->printUserAttributes = printUserAttributes;
@@ -21,29 +21,37 @@ XmlProlog::XmlProlog(
 /* Default XML prolog parameter member function */
 
 void XmlProlog::setXmlVersion(float xmlVersion) {
-    this->xmlVersion = xmlVersion;
+    this->setAttribute("xml_version", std::to_string(xmlVersion).substr(0, 3));
 }
 
-float XmlProlog::getXmlVersion(void) {
-    return this->xmlVersion;
+float XmlProlog::getXmlVersion(void) const {
+    return std::stof(this->getAttribute("xml_version"));
 }
 
 
 void XmlProlog::setEncoding(std::string const & encoding) {
-    this->encoding = encoding;
+    this->setAttribute("encoding", encoding);
 }
 
-std::string XmlProlog::getEncoding(void) {
-    return this->encoding;
+std::string XmlProlog::getEncoding(void) const {
+    return this->getAttribute("encoding");
+}
+
+void XmlProlog::unsetEncoding(void) {
+    this->delAttribute("encoding");
 }
 
 
-void XmlProlog::setStandalone(char const * standalone) {
-    this->standalone = standalone;
+void XmlProlog::setStandalone(std::string const & standalone) {
+    this->setAttribute("standalone", standalone);
 }
 
-char const * XmlProlog::getStandalone(void) {
-    return this->standalone;
+std::string XmlProlog::getStandalone(void) const {
+    return this->getAttribute("standalone");
+}
+
+void XmlProlog::unsetStandalone(void) {
+    this->delAttribute("standalone");
 }
 
 
@@ -51,7 +59,7 @@ void XmlProlog::setUserAttributes(bool printUserAttributes) {
     this->printUserAttributes = printUserAttributes;
 }
 
-bool XmlProlog::getUserAttributes(void) {
+bool XmlProlog::getUserAttributes(void) const {
     return this->printUserAttributes;
 }
 
@@ -66,25 +74,30 @@ std::string XmlProlog::print(int indentLevel) {
             result += "\t";
     }
 
-    result += "<?xml version=\"" + std::to_string(this->xmlVersion).substr(0, 3) + "\"";
+    result += "<?xml";
 
-    if(!this->encoding.empty()) {
-        result += " encoding=\"" + this->encoding + "\"";
-    }
-
-    if(strcmp(this->standalone, STANDALONE_UNSET)) {
-        result += " standalone=\"";
-        result += this->standalone; 
-        result += "\"";
-    }
-
-    if(this->printUserAttributes && !this->isAttributeEmpty()) {
+    if(this->printUserAttributes) {
         for(auto it : this->attributes) {
-            result += " ";
-            result += it.first;
-            result += "=\"" + it.second + "\"";
+            result += " " + it.first + "=\"" + it.second + "\"";
+        }
+    } else {
+
+        if(!this->getAttribute("xml_version").empty()) {
+            result += " version=\"" + this->getAttribute("xml_version") + "\"";
+        } else {
+            result += " version=\"1.0\"";
+        }
+
+        if(!this->getAttribute("encoding").empty()) {
+            result += " encoding=\"" + this->getAttribute("encoding") + "\"";
+        }
+
+        if(!this->getAttribute("standalone").empty()) {
+            result += " standalone=\"" + this->getAttribute("standalone") + "\"";
         }
     }
+
+
 
     result += "?>";
 
