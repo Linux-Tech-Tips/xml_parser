@@ -97,7 +97,10 @@ void DoctypeDTD::addChild(int pos, DTD const & value) {
 }
 
 void DoctypeDTD::delChild(int pos) {
-    this->children.erase(this->children.begin() + pos);
+    if((size_t)pos < this->children.size())
+        this->children.erase(this->children.begin() + pos);
+    else
+        throw std::invalid_argument("Error: Can't erase at out-of-bounds index");
 }
 
 void DoctypeDTD::pushBackChild(DTD const & value) {
