@@ -94,8 +94,10 @@ void XmlDocument::saveAttributes(std::string const & tag, Node * nodeObject, int
     char quoteChar = '"';
     /* The key-value pair currently in use */
     std::string pair [2] = {"", ""};
+    /* Control variable to make sure the for loop is breakable from within */
+    bool finished = false;
     
-    for(size_t i = nameEndIndex; i < tag.length(); i++) {
+    for(size_t i = nameEndIndex; (i < tag.length() && !finished); i++) {
         /* Selecting appropriate parser behavior based on state */
         switch(state) {
             /* Reading key */
@@ -130,7 +132,7 @@ void XmlDocument::saveAttributes(std::string const & tag, Node * nodeObject, int
             default:
                 /* Checking for any character signifying the end of the tag */
                 if(tag[i] == '>' || tag[i] == '?' || tag[i] == '!' || tag[i] == '/' || tag[i] == '<' || tag[i] == '\0') {
-                    break;
+                    finished = true;
                 } else if(!std::isspace(tag[i])) {
                     /* Switch state to reading key */
                     state = 0;
@@ -140,18 +142,6 @@ void XmlDocument::saveAttributes(std::string const & tag, Node * nodeObject, int
         }
     }
 }
-
-// std::pair<std::string, std::string> XmlDocument::getPair(std::string const & pair) {
-//     std::pair<std::string, std::string> result;
-
-//     /* Split the pair into substrings by the first found equals character (because it is assumed a key won't have an equals in the name) */
-//     int eqIdx = pair.find('=');
-//     result.first = pair.substr(0, eqIdx);
-//     /* Make sure to take quote characters into consideration by adding 2 to eqIdx */
-//     result.second = pair.substr(eqIdx+2, pair.length() - (eqIdx+2));
-
-//     return result;
-// }
 
 Node * XmlDocument::getXMLObject(std::string const & trimmedNode, std::string const & nodeName, NodeTypeName nodeType, bool endLine, bool indent) {
 
@@ -614,56 +604,111 @@ XmlDocument::XmlDocument(char const * filePath) {
 }
 
 XmlDocument::XmlDocument(XmlDocument const & original) {
-    // TODO STUB Implement after all class memory management known
+    /* Setting new members to original members */
+    this->filePath = original.filePath;
+    /* Copying any nodes found in the original */
+    if(original.getChildAmount() > 0) {
+        for(auto it : original.nodes) {
+            this->pushBackNode(*it);
+        }
+    }
+}
+
+XmlDocument::~XmlDocument(void) {
+    /* Deleting any allocated child nodes */
+    if(this->getChildAmount() > 0) {
+        for(auto it : this->nodes) {
+            delete it;
+        }
+    }
 }
 
 
 /* Get functions for internal nodes */
 
 Node * XmlDocument::getNode(int index) {
-    /* TODO Later - bleh :P too tired/lazy to think */
+    if((size_t)index < this->nodes.size())
+        return this->nodes.at((size_t)index);
+    else
+        return nullptr;
 }
 
 Node * XmlDocument::getNode(char const * name, size_t offset) {
-
+    int index;
+    if(this->findChild(name, &index, offset))
+        return this->nodes.at((size_t)index);
+    else
+        return nullptr;
 }
 
 size_t XmlDocument::getChildAmount(void) const {
-
+    return this->nodes.size();
 }
 
 size_t XmlDocument::getChildAmount(char const * name) const {
-
+    int amount = 0;
+    /* Counting all nodes with the specified name */
+    for(auto it : this->nodes) {
+        if(it->getName().compare(name) == 0) {
+            amount++;
+        }
+    }
+    return amount;
 }
 
 bool XmlDocument::findChild(char const * name, int * index, size_t offset) {
-
+    /* Go through all child elements until the requested one found */
+    for(size_t i = 0; i < this->getChildAmount(); i++) {
+        if(this->nodes[i]->getName().compare(name) == 0) {
+            if(offset > 0) {
+                /* Decrement the offset if child with the requested name found, but not the correct n-th yet */
+                offset--;
+            } else {
+                /* Returns and saves the index of the found instance, if correct n-th offset */
+                if(index)
+                    *index = i;
+                return true;
+            }
+        }
+    }
+    /* Returns false and saves -1 if for loop finishes without finding any */
+    *index = -1;
+    return false;
 }
 
 /* Member functions modifying the base internal node vector */
 
 void XmlDocument::addNode(Node const & node, int index) {
-
+    this->nodes.insert(this->nodes.begin() + index, node._copy());
 }
 
 void XmlDocument::pushBackNode(Node const & node) {
-
+    this->nodes.push_back(node._copy());
 }
 
-void XmlDocument::delNode(int intex) {
-
+void XmlDocument::delNode(int index) {
+    if((size_t)index < this->nodes.size())
+        this->nodes.erase(this->nodes.begin() + index);
+    else
+        throw std::invalid_argument("Error: Can't erase at out-of-bounds index");
 }
 
 void XmlDocument::popBackNode(void) {
-
+    this->nodes.pop_back();
 }
 
 
 /* Document manipulation functions */
 
 void XmlDocument::clear(void) {
-    // TODO STUB Critical function, finish
-    // Make sure to take the class' internal memory allocation into account
+    /* Erasing the file path */
+    this->filePath = "";
+    /* Removing all nested nodes */
+    if(this->getChildAmount() > 0) {
+        while(!this->nodes.empty()) {
+            this->popBackNode();
+        }
+    }
 }
 
 void XmlDocument::load(char const * filePath) {
@@ -680,7 +725,19 @@ void XmlDocument::save(char const * filePath) {
 }
 
 void XmlDocument::loadFromString(std::string const & xml) {
-    // TODO STUB Crucial function, finish
+    /* Getting the XML declarations of each node */
+    std::vector<std::pair<std::string, NodeTypeName>> declarations = XmlDocument::getNodes(xml);
+    /* Getting and saving the object for each node */
+    for(std::pair<std::string, NodeTypeName> xmlNode : declarations) {
+        Node * object = XmlDocument::getNodeObject(xmlNode.first, xmlNode.second);
+        if(object != nullptr) {
+            this->pushBackNode(*object);
+            delete object;
+        } else {
+            std::cerr << "WARNING: Error on loading XML node from string" << std::endl;
+        }
+    }
+
 }
 
 std::string XmlDocument::print(void) {

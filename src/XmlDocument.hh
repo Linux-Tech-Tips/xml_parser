@@ -67,9 +67,6 @@ class XmlDocument {
         */
         static void saveAttributes(std::string const & tag, Node * nodeObject, int nameEndIndex = -1);
 
-        /** Returns a key-value pair of text (in the format key='value' or key="value") as an std::pair of a key and value saved in separate strings */
-        //static std::pair<std::string, std::string> getPair(std::string const & pair);
-
         /** Internal function, returns a Node * instance of an XML element, if the passed xmlNode and nodeType correspond to an XML Node (undefined behavior otherwise) */
         static Node * getXMLObject(std::string const & trimmedNode, std::string const & nodeName, NodeTypeName nodeType, bool endLine, bool indent);
 
@@ -103,6 +100,8 @@ class XmlDocument {
         /** Copy constructor (allocating new Node memory for a new copy) */
         XmlDocument(XmlDocument const & original);
 
+        ~XmlDocument(void);
+
 
         /* Get functions for internal nodes */
 
@@ -133,7 +132,7 @@ class XmlDocument {
         void pushBackNode(Node const & node);
 
         /** Removes an internally saved Node from the specified index */
-        void delNode(int intex);
+        void delNode(int index);
 
         /** Removes the last Node in the document */
         void popBackNode(void);

@@ -15,11 +15,9 @@
 
 #include "XmlDocument.hh"
 
-/* First version - file_util demo - write/read files before working with XML */
-
-/* Temporary TODO Next: 
-    - Make an XML Document class, which can load and save XML Documents
-*/
+// TODO TEST XmlDocument at least a little bit before committing
+// TODO Then fix and make the memory management more consistent
+// TODO Then remake the main file to have a demo
 
 int main() {
 
@@ -131,23 +129,18 @@ int main() {
     ((DTD *)doctype.getChild(0))->getContent(gotContent);
     std::cout << "CONTENT: " << gotContent << std::endl;
 
-    doctype.setContent("this is content");
+    doctype.setContent("content");
 
     /* Printing again */
     std::cout << "2. The element is:" << std::endl << prlg.print() << piTest->print() << doctype.print() << rootEl.print() << std::endl;
     delete piTest;
 
-    auto test = XmlDocument::getNodes(file_readString("xml_demo.xml"));
 
-    for(auto it : test) {
-        std::cout << "Node loading test: " << std::endl << it.first << std::endl << " Node type:" << (int)(it.second) << std::endl;
-        //std::cout << "INDEX TEST: " << it.first.find('\0') << " " << it.first.rfind('\0') << std::endl;
-        Node * gotNode = XmlDocument::getNodeObject(it.first, it.second);
-        if(gotNode != nullptr) {
-            std::cout << "Processed Node object: " << gotNode->print() << std::endl;
-        }
-        delete gotNode;
-    }
+    /* XmlDocument tests */
+
+    XmlDocument testDoc = XmlDocument("xml_demo.xml");
+
+    testDoc.save("xml_demo_out.xml");
 
     return 0;
 }
