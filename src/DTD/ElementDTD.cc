@@ -2,7 +2,7 @@
 
 /* Constructor */
 
-ElementDTD::ElementDTD(std::string const & elementName, std::string const & content, bool endLine, bool indent) {
+ElementDTD::ElementDTD(std::string const & elementName, std::string const & content, bool indent, bool endLine) {
     this->setName(DTD_ELEMENT, false);
     this->nodeType = NodeTypeName::ElementDTD;
     this->setAttribute("element_name", elementName);
