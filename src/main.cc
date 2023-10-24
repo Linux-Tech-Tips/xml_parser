@@ -15,9 +15,7 @@
 
 #include "XmlDocument.hh"
 
-// TODO TEST XmlDocument at least a little bit before committing
-// TODO Then fix and make the memory management more consistent
-// TODO Then remake the main file to have a demo
+// TODO remake the main file to have a demo
 
 int main() {
 
@@ -37,29 +35,34 @@ int main() {
     /* Printing */
     std::cout << "1. The element is:" << std::endl << rootEl.print() << std::endl;
 
+    rootEl.delChild(1);
+
     /* Additional nodes */
     rootEl.getChild(0)->setName("NestedElementZero");
-    rootEl.getChild(1)->setAttribute("internal_index", "1");
-    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(XmlElement("NestedElement3"));
+    rootEl.getChild(0)->setAttribute("internal_index", "1");
+    dynamic_cast<XmlElement *>(rootEl.getChild(0))->pushBackChild(XmlElement("NestedElement3"));
 
     /* Adding paragraphs */
-    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(Comment("NOTE:", "The following is a paragrahp", true));
-    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(TextElement("p", "This is a text paragraph"));
+    dynamic_cast<XmlElement *>(rootEl.getChild(0))->pushBackChild(Comment("NOTE:", "The following is a paragrahp", true));
+    dynamic_cast<XmlElement *>(rootEl.getChild(0))->pushBackChild(TextElement("p", "This is a text paragraph"));
 
     XmlElement paragraph("p", true);
     paragraph.pushBackChild(TextElement("text1", "This \"is\" a showcase of ", false, false));
     paragraph.pushBackChild(TextElement("b", "HTML", true, false, false, true));
     paragraph.pushBackChild(TextElement("text3", "-like paragraph capability (in addition to pure XML). <3", false, false));
 
-    dynamic_cast<XmlElement *>(rootEl.getChild(1))->pushBackChild(paragraph);
+    dynamic_cast<XmlElement *>(rootEl.getChild(0))->pushBackChild(paragraph);
 
     if(rootEl.findChild("NestedElementZero")) {
+        std::cout << "DEBUG MILESTONE" << std::endl;
         XmlElement * zero = dynamic_cast<XmlElement *>(rootEl.getChild("NestedElementZero"));
         zero->setAttribute("zeroth", "true");
         zero->pushBackChild(TextElement("p", "this is the zero-th element, nice"));
     }
 
-    int nestedP = ((XmlElement *)rootEl.getChild("NestedElement2"))->getChildAmount("p");
+    int nestedP = -1;
+    if(rootEl.findChild("NestedElement2"))
+        nestedP = ((XmlElement *)rootEl.getChild("NestedElement2"))->getChildAmount("p");
     if(nestedP > 0) {
         std::cout << "Number of p elements in NestedElement2: " << nestedP << std::endl;
         XmlElement * n2 = ((XmlElement *)rootEl.getChild("NestedElement2"));
@@ -94,10 +97,13 @@ int main() {
     doctype.pushBackChild(EntityDTD("EN", "TITY"));
     doctype.pushBackChild(EntityDTD("EXT", DTD_EXTERN_SYSTEM " \"https://www.w3schools.com/entities.dtd\"", false));
 
+    doctype.delChild(0);
+
     std::string tmpName;
     std::string tmpValue;
     bool tmpIsString;
-    ((EntityDTD *)doctype.getChild(6))->getContent(tmpName, tmpValue, tmpIsString);
+    if(doctype.getChild(6) != nullptr)
+        ((EntityDTD *)doctype.getChild(6))->getContent(tmpName, tmpValue, tmpIsString);
     std::cout << "DEBUG: Values are " << tmpName << " " << tmpValue << " " << tmpIsString << std::endl;
 
     ElementDTD seqElement("element3");
@@ -130,6 +136,7 @@ int main() {
     std::cout << "CONTENT: " << gotContent << std::endl;
 
     doctype.setContent("content");
+
 
     /* Printing again */
     std::cout << "2. The element is:" << std::endl << prlg.print() << piTest->print() << doctype.print() << rootEl.print() << std::endl;

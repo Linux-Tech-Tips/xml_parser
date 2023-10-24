@@ -65,9 +65,12 @@ class XmlElement: public Node {
         /** Remove a nested child element from the back of the list */
         void popBackChild(void);
 
-        /** Get a pointer to the nested child element from the given position (or null pointer if out of bounds) */
+        /** Get a pointer to the nested child element from the given position (or null pointer if out of bounds). 
+         * The function exposes the pointer to the inner child Node directly, and therefore the returned pointer should not be deleted after use.
+        */
         Node * getChild(int index);
-        /** Get a pointer to the n-th nested child element with the given name (or null pointer if not found or offset out of range) 
+        /** Get a pointer to the n-th nested child element with the given name (or null pointer if not found or offset out of range). 
+         * The function exposes the pointer to the inner child Node directly, and therefore the returned pointer should not be deleted after use.
          *  @param offset which found named child to get (leave default or 0 for the first child; the amount of found named children specified by offset is skipped)
         */
         Node * getChild(char const * childName, size_t offset = 0);

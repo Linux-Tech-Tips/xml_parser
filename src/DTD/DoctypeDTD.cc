@@ -97,10 +97,12 @@ void DoctypeDTD::addChild(int pos, DTD const & value) {
 }
 
 void DoctypeDTD::delChild(int pos) {
-    if((size_t)pos < this->children.size())
+    if((size_t)pos < this->children.size()) {
+        delete this->children.at(pos);
         this->children.erase(this->children.begin() + pos);
-    else
+    } else {
         throw std::invalid_argument("Error: Can't erase at out-of-bounds index");
+    }
 }
 
 void DoctypeDTD::pushBackChild(DTD const & value) {
@@ -108,6 +110,7 @@ void DoctypeDTD::pushBackChild(DTD const & value) {
 }
 
 void DoctypeDTD::popBackChild(void) {
+    delete this->children.at(this->children.size()-1);
     this->children.pop_back();
 }
 
@@ -160,7 +163,8 @@ bool DoctypeDTD::findChild(char const * nameToFind, int * index, size_t offset) 
         }
     }
     /* Return false if none found */
-    *index = -1;
+    if(index)
+        *index = -1;
     return false;
 }
 

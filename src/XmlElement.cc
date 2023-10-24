@@ -51,10 +51,12 @@ void XmlElement::addChild(int pos, Node const & value) {
 }
 
 void XmlElement::delChild(int pos) {
-    if((size_t)pos < this->children.size())
+    if((size_t)pos < this->children.size()) {
+        delete this->children.at(pos);
         this->children.erase(this->children.begin() + pos);
-    else
+    } else {
         throw std::invalid_argument("Error: Can't erase at out-of-bounds index");
+    }
 }
 
 void XmlElement::pushBackChild(Node const & value) {
@@ -62,6 +64,7 @@ void XmlElement::pushBackChild(Node const & value) {
 }
 
 void XmlElement::popBackChild(void) {
+    delete this->children.at(this->children.size()-1);
     this->children.pop_back();
 }
 
@@ -117,7 +120,8 @@ bool XmlElement::findChild(char const * nameToFind, int * index, size_t offset) 
         }
     }
     /* Returns false and saves -1 if for loop finishes without finding any */
-    *index = -1;
+    if(index)
+        *index = -1;
     return false;
 }
 

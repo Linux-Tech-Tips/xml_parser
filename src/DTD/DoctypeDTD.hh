@@ -94,9 +94,12 @@ class DoctypeDTD : public DTD {
         /** Removes the last nested DTD element */
         void popBackChild(void);
 
-        /** Returns a pointer to the internally stored nested DTD element at the given position (or null pointer if out of bounds) */
+        /** Returns a pointer to the internally stored nested DTD element at the given position (or null pointer if out of bounds). 
+         * The function exposes the pointer to the nested DTD directly, and therefore the returned pointer should not be deleted after use.
+        */
         Node * getChild(int pos);
-        /** Returns a pointer to the n-th internally stored nested DTD child element with the given name (or null pointer if no such child exists) 
+        /** Returns a pointer to the n-th internally stored nested DTD child element with the given name (or null pointer if no such child exists). 
+         * The function exposes the pointer to the nested DTD directly, and therefore the returned pointer should not be deleted after use.
          *  @param offset which found element to get (leave default or 0 for the first element; the amount of found named children specified by the offset is skipped)
         */
         Node * getChild(char const * name, size_t offset = 0);

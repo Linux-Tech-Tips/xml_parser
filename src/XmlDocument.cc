@@ -672,7 +672,8 @@ bool XmlDocument::findChild(char const * name, int * index, size_t offset) {
         }
     }
     /* Returns false and saves -1 if for loop finishes without finding any */
-    *index = -1;
+    if(index)
+        *index = -1;
     return false;
 }
 
@@ -687,13 +688,16 @@ void XmlDocument::pushBackNode(Node const & node) {
 }
 
 void XmlDocument::delNode(int index) {
-    if((size_t)index < this->nodes.size())
+    if((size_t)index < this->nodes.size()) {
+        delete this->nodes.at(index);
         this->nodes.erase(this->nodes.begin() + index);
-    else
+    } else {
         throw std::invalid_argument("Error: Can't erase at out-of-bounds index");
+    }
 }
 
 void XmlDocument::popBackNode(void) {
+    delete this->nodes.at(this->nodes.size()-1);
     this->nodes.pop_back();
 }
 
