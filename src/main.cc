@@ -13,6 +13,8 @@
 #include "DTD/AttributeDTD.hh"
 #include "DTD/EntityDTD.hh"
 
+#include "XmlDocument.hh"
+
 /* First version - file_util demo - write/read files before working with XML */
 
 /* Temporary TODO Next: 
@@ -72,6 +74,15 @@ int main() {
 
     /* XML Document prolog */
     XmlProlog prlg("xml_prolog", 1.0f, "UTF-8", STANDALONE_YES);
+    ProcessingInstruction * piTest = new ProcessingInstruction("instruction", true, false);
+    std::string keys [2] = {"test", "version"};
+    std::string vals [2] = {"yes", "1a"};
+    piTest->setAttribute(keys[0].c_str(), vals[0]);
+    piTest->setAttribute(keys[1].c_str(), vals[1]);
+    vals[0] = "";
+    keys[0] = "";
+    vals[1] = "";
+    keys[1] = "";
 
     /* XML DTD Document type declaration */
     DoctypeDTD doctype("html");
@@ -123,7 +134,20 @@ int main() {
     doctype.setContent("this is content");
 
     /* Printing again */
-    std::cout << "2. The element is:" << std::endl << prlg.print() << doctype.print() << rootEl.print() << std::endl;
+    std::cout << "2. The element is:" << std::endl << prlg.print() << piTest->print() << doctype.print() << rootEl.print() << std::endl;
+    delete piTest;
+
+    auto test = XmlDocument::getNodes(file_readString("xml_demo.xml"));
+
+    for(auto it : test) {
+        std::cout << "Node loading test: " << std::endl << it.first << std::endl << " Node type:" << (int)(it.second) << std::endl;
+        //std::cout << "INDEX TEST: " << it.first.find('\0') << " " << it.first.rfind('\0') << std::endl;
+        Node * gotNode = XmlDocument::getNodeObject(it.first, it.second);
+        if(gotNode != nullptr) {
+            std::cout << "Processed Node object: " << gotNode->print() << std::endl;
+        }
+        delete gotNode;
+    }
 
     return 0;
 }
