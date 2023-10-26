@@ -12,6 +12,7 @@ DoctypeDTD::DoctypeDTD(std::string const & rootElement, bool singleLine, bool in
 
 DoctypeDTD::DoctypeDTD(DoctypeDTD const & original) {
     this->name = original.name;
+    this->nodeType = original.nodeType;
     this->attributes = original.attributes;
     this->singleLine = original.singleLine;
     this->indent = indent;
