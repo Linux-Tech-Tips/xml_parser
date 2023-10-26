@@ -1,7 +1,7 @@
 /**
- * @file DTD.hh
+ * @file ElementDTD.hh
  * @author Linux-Tech-Tips
- * @brief XML DTD (Document Type Definition) element class declaration header
+ * @brief XML Element DTD element class declaration header
  *
  * The header declaring the class of the XML Document Type Definition
  */
