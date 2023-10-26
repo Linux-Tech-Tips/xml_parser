@@ -100,6 +100,9 @@ class XmlDocument {
         /** Copy constructor (allocating new Node memory for a new copy) */
         XmlDocument(XmlDocument const & original);
 
+        /** Empty constructor - creating an empty Xml Document */
+        XmlDocument();
+
         ~XmlDocument(void);
 
 

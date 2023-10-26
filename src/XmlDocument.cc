@@ -538,7 +538,7 @@ std::vector<std::pair<std::string, NodeTypeName>> XmlDocument::getNodes(std::str
             /* Check that buffer length is smaller than current i to prevent checking -1st character when the XML tag in buffer starts the file directly, 
                if so, check the character before the buffer for a whitespace to indicate indent
             */
-            if(((size_t)bLength <= i) && (fileContent[i-bLength] == '\t' || fileContent[i-bLength] == ' ')) {}
+            if(((size_t)bLength <= i) && (fileContent[i-bLength] == '\t' || fileContent[i-bLength] == ' '))
                 buffer = '\t' + buffer;
             
             /* Adding node to the result */
@@ -616,6 +616,10 @@ XmlDocument::XmlDocument(XmlDocument const & original) {
             this->pushBackNode(*it);
         }
     }
+}
+
+XmlDocument::XmlDocument() {
+    this->filePath = "";
 }
 
 XmlDocument::~XmlDocument(void) {
