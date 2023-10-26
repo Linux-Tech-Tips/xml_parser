@@ -31,13 +31,13 @@ void Node::setName(std::string const & name, bool checkName) {
     }
 }
 
-std::string Node::getName(void) {
+std::string Node::getName(void) const {
     return this->name;
 }
 
 /* Type */
 
-NodeTypeName Node::getNodeType(void) {
+NodeTypeName Node::getNodeType(void) const {
     return this->nodeType;
 }
 

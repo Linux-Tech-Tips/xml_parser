@@ -89,13 +89,13 @@ class Node {
          */
         virtual void setName(std::string const & name, bool checkName = true);
         /** Returns the current name of the node */
-        virtual std::string getName(void);
+        virtual std::string getName(void) const;
 
 
         /* Type */
 
         /** Returns the specific type of the current Node, in the format of a NodeTypeName enum element */
-        NodeTypeName getNodeType(void);
+        NodeTypeName getNodeType(void) const;
 
 
         /* Attribute */
