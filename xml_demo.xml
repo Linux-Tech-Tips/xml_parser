@@ -1,56 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!DOCTYPE this [
-	<!CUSTOM_DTD test>
-	<!ELEMENT element1 EMPTY>
-	<!ELEMENT element2 ANY>
-	<!ATTLIST element1 at CDATA #FIXED "tribute">
-	<!ATTLIST element1 not CDATA "thing">
-	<!ENTITY EN "TITY">
-	<!ENTITY EXT SYSTEM "https://www.w3schools.com/entities.dtd">
-	<!ELEMENT element3 (one, two, three, four, five, six, (seven | eight))>
+<!DOCTYPE sample_data [
+	<!ELEMENT table ANY>
+	<!ELEMENT table_row ANY>
+	<!ELEMENT table_column (#PCDATA)>
+	<!ELEMENT br EMPTY>
 ]>
-<!ATTLIST element1 att2 CDATA (value1|value2|value3) "value1">
-<!ELEMENT element2 (one, two, three, four, five, six, (seven | eight))>
-<!TEST_DTD custom dtd with custom content>
-<Empty />
-<!-- Comment here -->
-<Test>Content</Test>
-<RootElement attr1="first attribute" attr2="second attribute">
-	<NestedElementZero zeroth="true">
-		<p>this is the zero-th element, nice</p>
-	</NestedElementZero>
-	<NestedElement2 internal_index="1">
-		<NestedElement3 />
-		<!-- NOTE: The following is a paragrahp -->
-		<p>This is a text paragraph</p>
-		<p>This &quot;is&quot; a showcase of <b>HTML</b>-like paragraph capability (in addition to pure XML). &lt;3</p>
-	</NestedElement2>
-</RootElement>
-<TestElement2>
-	<Content>Things</Content>
-</TestElement2>
-<NestedElementZero zeroth="true">
-    <p>this is the zero-th element, nice</p>
-</NestedElementZero>
-<NestedElement2 internal_index="1">
-    <NestedElement3 />
-    <!-- NOTE: The following is a paragrahp -->
-    <p>This is a text paragraph</p>
-    <p>This &quot;is&quot; a showcase of <b>HTML</b>-like paragraph capability (in addition to pure XML). &lt;3</p>
-</NestedElement2>
-<NestedElement3 />
-<!-- NOTE: The following is a paragrahp -->
-        <p>This is a text paragraph</p>
-<p>This &quot;is&quot; a showcase of <b>HTML</b>-like paragraph capability (in addition to pure XML). &lt;3</p>
-This &quot;is&quot; a showcase of <b>HTML</b>-like paragraph capability (in addition to pure XML). &lt;3<p>test</p>
-
-<div>
-	<div>
-		<p>test content</p>
-	</div>
-</div>
-	<div>thing</div>
-
-<?instruct version="1.0" encoding="UTF-8" standalone="yes"?>
-
-<br/>
+<sample_data>
+	<table>
+		<table_row>
+			<table_column>Sample Content 1.1</table_column>
+			<table_column>Sample Content 1.2</table_column>
+			<table_column>Sample Content 1.3</table_column>
+		</table_row>
+		<table_row>
+			<table_column>Sample Content 2.1</table_column>
+			<table_column>Sample Content 2.2</table_column>
+			<table_column>Sample Content 2.3</table_column>
+		</table_row>
+		<table_row>
+			<table_column>Sample Content 3.1</table_column>
+			<table_column>Sample Content 3.2</table_column>
+			<table_column>Sample Content 3.3</table_column>
+		</table_row>
+	</table>
+</sample_data>
