@@ -1,18 +1,18 @@
 #include <iostream>
 #include <string>
 
-#include "Node.hh"
-#include "XmlElement.hh"
-#include "TextElement.hh"
-#include "XmlProlog.hh"
-#include "Comment.hh"
-#include "DTD/DTD.hh"
-#include "DTD/DoctypeDTD.hh"
-#include "DTD/ElementDTD.hh"
-#include "DTD/AttributeDTD.hh"
-#include "DTD/EntityDTD.hh"
+#include "parser/XML/Node.hh"
+#include "parser/XML/XmlElement.hh"
+#include "parser/XML/TextElement.hh"
+#include "parser/XML/XmlProlog.hh"
+#include "parser/XML/Comment.hh"
+#include "parser/XML/DTD/DTD.hh"
+#include "parser/XML/DTD/DoctypeDTD.hh"
+#include "parser/XML/DTD/ElementDTD.hh"
+#include "parser/XML/DTD/AttributeDTD.hh"
+#include "parser/XML/DTD/EntityDTD.hh"
 
-#include "XmlDocument.hh"
+#include "parser/XmlDocument.hh"
 
 /** Data structure containing the current state of the command line program */
 struct cmdState {

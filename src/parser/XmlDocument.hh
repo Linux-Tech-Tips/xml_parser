@@ -12,17 +12,17 @@
 #include <vector>
 #include <utility>
 
-#include "Node.hh"
-#include "Comment.hh"
-#include "ProcessingInstruction.hh"
-#include "TextElement.hh"
-#include "XmlElement.hh"
-#include "XmlProlog.hh"
-#include "DTD/DTD.hh"
-#include "DTD/AttributeDTD.hh"
-#include "DTD/DoctypeDTD.hh"
-#include "DTD/ElementDTD.hh"
-#include "DTD/EntityDTD.hh"
+#include "XML/Node.hh"
+#include "XML/Comment.hh"
+#include "XML/ProcessingInstruction.hh"
+#include "XML/TextElement.hh"
+#include "XML/XmlElement.hh"
+#include "XML/XmlProlog.hh"
+#include "XML/DTD/DTD.hh"
+#include "XML/DTD/AttributeDTD.hh"
+#include "XML/DTD/DoctypeDTD.hh"
+#include "XML/DTD/ElementDTD.hh"
+#include "XML/DTD/EntityDTD.hh"
 #include "file_util.hh"
 
 /** 
