@@ -532,9 +532,13 @@ std::vector<std::pair<std::string, NodeTypeName>> XmlDocument::getNodes(std::str
             /* Adding leading tab or trailing linebreak if any exist, to keep new line formatting more consistend with loaded documents */
             if(fileContent[i] == '\n')
                 buffer += '\n';
+
             /* Length is adjusted by 2 if '\0' character-based marker found in the buffer */
             int bLength = buffer.length() - (buffer.find('\0') == std::string::npos ? 0 : 2);
-            if(fileContent[i-bLength] == '\t' || fileContent[i-bLength] == ' ')
+            /* Check that buffer length is smaller than current i to prevent checking -1st character when the XML tag in buffer starts the file directly, 
+               if so, check the character before the buffer for a whitespace to indicate indent
+            */
+            if(((size_t)bLength <= i) && (fileContent[i-bLength] == '\t' || fileContent[i-bLength] == ' ')) {}
                 buffer = '\t' + buffer;
             
             /* Adding node to the result */
